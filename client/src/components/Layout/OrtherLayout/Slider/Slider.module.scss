@@ -1,0 +1,91 @@
+.wrapper {
+    width: 100%;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: 450px auto auto;
+    grid-template-columns: auto;
+}
+
+// ============ [Content] ============
+.banner {
+    display: grid;
+    grid-template-rows: 130px auto;
+    grid-template-columns: auto;
+
+    img {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+    }
+
+    .title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--text-color);
+
+        p {
+            font-size: 40px;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        span {
+            font-size: 100px;
+            font-weight: 900;
+        }
+    }
+}
+
+.booking {
+    margin: 0 100px;
+    height: 100px;
+    padding: 1rem;
+    box-shadow: var(--box-shadow);
+    background-color: var(--text-color);
+
+    .form {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 30% 30% 30% 10%;
+        width: 100%;
+        height: 100%;
+
+        .input {
+            .border {
+                border-left: 1px solid var(--border);
+            }
+            select {
+                width: 100%;
+                height: 100%;
+                border: none;
+                padding: 0 10px;
+
+                option {
+                    border: none;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            button {
+                width: 100%;
+                height: 100%;
+                border: none;
+                text-transform: uppercase;
+                font-weight: 700;
+                color: var(--text-color);
+                background-color: var(--secondary);
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 25.9375em) {
+    .wrapper {
+        display: none;
+    }
+}

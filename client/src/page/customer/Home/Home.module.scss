@@ -1,0 +1,618 @@
+.wrapper {
+    width: 100%;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 100%;
+}
+
+// ============ [Content] ============
+.title {
+    font-size: 50px;
+    font-weight: 900;
+}
+
+.desc {
+    color: var(--border);
+}
+
+.first,
+.third,
+.fourth,
+.fifth {
+    margin: 30px 0;
+    padding: 50px 150px;
+}
+
+.first {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 60% 40%;
+
+    .welcome {
+        display: none;
+    }
+
+    .image {
+        padding-right: 50px;
+
+        .thumbnail {
+            height: 350px;
+        }
+        .library {
+            display: grid;
+            margin: 10px 0;
+            justify-content: space-between;
+            grid-template-rows: 100px;
+            grid-template-columns: 24% 24% 24% 24%;
+        }
+
+        .image-thumbnail,
+        .image-library {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    }
+
+    .text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        p,
+        span,
+        .button {
+            margin: 10px 0;
+        }
+
+        span {
+            color: green;
+        }
+
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            border-radius: 10px;
+            color: var(--text-color);
+            background-color: var(--primary);
+        }
+    }
+
+    .menu {
+        display: none;
+    }
+}
+
+.second {
+    padding: 50px 0;
+    background-color: var(--bg-session);
+
+    .title,
+    .desc {
+        text-align: center;
+    }
+    .title {
+        p {
+            font-family: 'Dancing Script', cursive;
+            font-size: 30px;
+            font-weight: 300;
+            color: var(--secondary);
+        }
+    }
+    .room {
+        margin: 50px 0;
+
+        .card {
+            width: 290px !important;
+            height: 450px;
+            .room-img {
+                padding-bottom: 30px;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+                box-shadow: var(--box-shadow);
+                background-color: var(--text-color);
+                img {
+                    width: 100%;
+                    height: 170px;
+                    object-fit: cover;
+                }
+
+                .review {
+                    width: 100%;
+                    padding: 2rem;
+                    .left {
+                        p,
+                        span,
+                        text {
+                            margin: 5px 0;
+                        }
+                        .name-room {
+                            font-size: 22px;
+                            font-weight: 700;
+                        }
+
+                        span {
+                            color: var(--text-logo);
+                        }
+                    }
+
+                    .right {
+                        margin: 10px 0;
+                        p {
+                            color: green;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.third {
+    display: grid;
+    align-items: center;
+    grid-template-rows: 500px;
+    background-color: var(--bg-session);
+    grid-template-columns: 50% 50%;
+
+    .travelling {
+        padding-right: 20px;
+
+        .literature {
+            margin: 20px 0;
+            text-align: justify;
+        }
+
+        .more {
+            width: 130px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            justify-content: center;
+            background-color: var(--primary);
+
+            .link {
+                font-weight: 500;
+                color: var(--text-color);
+            }
+        }
+    }
+
+    .four-img {
+        display: grid;
+        grid-template-rows: 400px;
+        grid-template-columns: 25% 25% 25% 25%;
+
+        .img1,
+        .img2,
+        .img3,
+        .img4 {
+            margin: 0 5px;
+
+            img {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+                border-radius: 10px;
+            }
+        }
+
+        .img2,
+        .img4 {
+            display: flex;
+            align-items: flex-end;
+        }
+    }
+}
+
+.fourth {
+    text-align: center;
+    padding: 50px 0;
+
+    .hope,
+    .thanks {
+        margin: 20px 0;
+    }
+
+    .hope {
+        padding: 0 60px;
+        font-size: 35px;
+        font-weight: 700;
+    }
+
+    .thanks {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 150px;
+        height: 50px;
+        color: var(--text-color);
+        font-weight: 500;
+        border-radius: 30px;
+        background-color: var(--hover);
+    }
+}
+
+.fifth {
+    .title,
+    .desc {
+        text-align: center;
+    }
+    .title {
+        p {
+            font-family: 'Dancing Script', cursive;
+            font-size: 30px;
+            font-weight: 300;
+            color: var(--secondary);
+        }
+    }
+
+    .services {
+        display: grid;
+        padding: 50px 0;
+        grid-template-rows: auto;
+        grid-template-columns: 25% 25% 25% 25%;
+
+        .serv {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 30px;
+
+            .lord-icon {
+                width: 100px;
+                height: 100px;
+            }
+
+            .items {
+                text-align: center;
+
+                p {
+                    font-size: 20px;
+                    font-weight: 700;
+                }
+
+                span {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 25.9375em) {
+    .wrapper {
+        width: 100%;
+    }
+
+    .container {
+        padding: 0 10px;
+    }
+
+    .first,
+    .second,
+    .third,
+    .fourth,
+    .fifth {
+        margin: 10px 0;
+        padding: 0;
+    }
+
+    .title {
+        font-size: 30px;
+        font-weight: 700;
+        padding-right: 0;
+        margin: 20px 0;
+    }
+
+    .first {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 100%;
+
+        .welcome {
+            display: block;
+            padding: 2rem;
+            border-radius: 10px;
+            background-color: var(--primary);
+
+            .aboard,
+            p,
+            span {
+                color: var(--text-color);
+                margin-bottom: 10px;
+            }
+
+            .aboard {
+                font-size: 30px;
+                font-weight: 700;
+            }
+
+            p {
+                font-size: 13px;
+            }
+
+            span {
+                font-weight: 500;
+                text-decoration: underline;
+            }
+        }
+
+        .image {
+            display: none;
+        }
+
+        .text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            p,
+            span,
+            .button {
+                margin: 10px 0;
+            }
+
+            span {
+                color: green;
+            }
+
+            .button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 150px;
+                height: 50px;
+                cursor: pointer;
+                font-weight: 500;
+                border-radius: 10px;
+                color: var(--text-color);
+                background-color: var(--primary);
+            }
+        }
+
+        .menu {
+            display: block;
+
+            .choose {
+                display: grid;
+                grid-template-rows: auto;
+                grid-template-columns: 25% 25% 25% 25%;
+
+                .button-mb {
+                    margin: 0 10px;
+                    padding: 1rem;
+                    border-radius: 10px;
+                    background-color: var(--bg-session);
+
+                    .link {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+
+                        i {
+                            font-size: 25px;
+                        }
+
+                        p {
+                            font-weight: 500;
+                            color: var(--primary);
+                        }
+
+                        .Travel {
+                            color: #d62828;
+                        }
+
+                        .Rooms {
+                            color: #023e8a;
+                        }
+                        .Service {
+                            color: #ffca3a;
+                        }
+
+                        .Event {
+                            color: #06d6a0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .second {
+        .title,
+        .desc {
+            padding: 0;
+        }
+        .room {
+            margin: 50px 0;
+
+            .card {
+                width: 100% !important;
+                height: 400px;
+                .room-img {
+                    padding-bottom: 30px;
+                    border-bottom-left-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                    box-shadow: none;
+                    img {
+                        width: 100%;
+                        height: 170px;
+                        object-fit: cover;
+                    }
+
+                    .review {
+                        width: 100%;
+                        padding: 2rem;
+                        .left {
+                            p,
+                            span,
+                            text {
+                                margin: 5px 0;
+                            }
+                            .name-room {
+                                font-size: 22px;
+                                font-weight: 700;
+                            }
+
+                            span {
+                                color: var(--text-logo);
+                            }
+                        }
+
+                        .right {
+                            margin: 10px 0;
+                            p {
+                                color: green;
+                                font-weight: 500;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .third {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: 100%;
+
+        .travelling {
+            padding-right: 0;
+
+            .literature {
+                margin: 20px 0;
+                text-align: justify;
+            }
+
+            .more {
+                width: 130px;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                border-radius: 10px;
+                justify-content: center;
+                background-color: var(--primary);
+
+                .link {
+                    font-weight: 500;
+                    color: var(--text-color);
+                }
+            }
+        }
+
+        .four-img {
+            display: grid;
+            margin-top: 20px;
+            grid-template-rows: 400px;
+            grid-template-columns: 25% 25% 25% 25%;
+
+            .img1,
+            .img2,
+            .img3,
+            .img4 {
+                margin: 0 5px;
+
+                img {
+                    width: 100%;
+                    height: 300px;
+                    object-fit: cover;
+                    border-radius: 10px;
+                }
+            }
+
+            .img2,
+            .img4 {
+                display: flex;
+                align-items: flex-end;
+            }
+        }
+    }
+
+    .fourth {
+        text-align: center;
+        padding: 50px 0;
+
+        .hope,
+        .thanks {
+            margin: 20px 0;
+        }
+
+        .hope {
+            padding: 0 10px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .thanks {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 50px;
+            color: var(--text-color);
+            font-weight: 500;
+            border-radius: 30px;
+            background-color: var(--primary);
+        }
+    }
+
+    .fifth {
+        .title,
+        .desc {
+            text-align: center;
+        }
+        .title {
+            p {
+                font-family: 'Dancing Script', cursive;
+                font-size: 30px;
+                font-weight: 300;
+                color: var(--secondary);
+            }
+        }
+
+        .services {
+            display: grid;
+            padding: 50px 0;
+            grid-template-rows: auto;
+            grid-template-columns: auto;
+
+            .serv {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 20px 30px;
+
+                .lord-icon {
+                    width: 100px;
+                    height: 100px;
+                }
+
+                .items {
+                    text-align: center;
+
+                    p {
+                        font-size: 20px;
+                        font-weight: 700;
+                    }
+
+                    span {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+}

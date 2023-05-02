@@ -1,0 +1,196 @@
+.wrapper {
+    width: 100%;
+    z-index: 1;
+}
+
+.container {
+    width: 100%;
+    z-index: 1;
+    background-color: #fff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+// ============ [Content PC] ============
+.top-bar {
+    display: flex;
+    height: 46px;
+    color: var(--text-color);
+    justify-content: space-between;
+    background-color: black;
+    padding: 0 30px;
+
+    .contact {
+        display: flex;
+
+        p {
+            font-size: 13.5px;
+            margin-right: 10px;
+            height: 46px;
+
+            .left-icons {
+                margin-top: 15px;
+                margin-right: 10px;
+                color: var(--secondary);
+            }
+        }
+    }
+
+    .button {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .platform {
+            display: flex;
+            font-size: 13.5px;
+            margin-right: 10px;
+            height: 46px;
+
+            .right-icons {
+                margin-top: 15px;
+                margin-right: 10px;
+            }
+
+            .right-icons:hover {
+                transition: 0.5s;
+                color: var(--secondary);
+            }
+        }
+
+        .language {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 130px;
+            height: 46px;
+            background-color: var(--secondary);
+
+            .change-btn {
+                display: grid;
+                font-weight: 500;
+                grid-template-rows: auto;
+                grid-template-columns: 80% 20%;
+
+                .hover {
+                    margin-top: 3px;
+                }
+            }
+
+            .change-list {
+                position: absolute;
+                display: none;
+                top: 46px;
+                width: 130px;
+                height: auto;
+                font-weight: 500;
+                background-color: var(--secondary);
+
+                p {
+                    padding: 13px 0;
+                    height: 46px;
+                }
+            }
+        }
+
+        .language:hover .change-list {
+            display: grid;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-btn {
+            width: 46px;
+            height: 46px;
+            border-left: 1px solid var(--text-color);
+            background-color: var(--secondary);
+
+            a {
+                display: flex;
+                align-items: center;
+                margin: 13px 13px;
+                font-size: 20px;
+                color: var(--text-color);
+            }
+        }
+    }
+}
+
+.bot-bar {
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+
+    .logo {
+        display: flex;
+
+        .icon {
+            font-size: 40px;
+            color: var(--text-logo);
+        }
+
+        p {
+            font-size: 30px;
+            font-weight: 700;
+
+            span {
+                color: var(--text-logo);
+            }
+        }
+    }
+
+    .menu {
+        display: flex;
+
+        .button {
+            width: 80px;
+            margin: 0 10px;
+            font-weight: 700;
+            text-align: center;
+
+            .link {
+                color: var(--primary);
+                transition: 0.5s;
+            }
+
+            .link:hover {
+                color: var(--secondary);
+            }
+
+            .active {
+                color: var(--secondary);
+            }
+        }
+    }
+
+    .options {
+        display: flex;
+        cursor: pointer;
+
+        .right-btn {
+            font-size: 25px;
+            margin-left: 10px;
+        }
+
+        .right-btn:hover {
+            transition: 0.5s;
+            color: var(--secondary);
+        }
+    }
+}
+
+@media only screen and (min-width: 26em) {
+    .wrapper {
+        width: 100%;
+        position: sticky;
+        top: 0;
+    }
+}
+
+@media only screen and (max-width: 25.9375em) {
+    .wrapper {
+        display: none;
+    }
+}

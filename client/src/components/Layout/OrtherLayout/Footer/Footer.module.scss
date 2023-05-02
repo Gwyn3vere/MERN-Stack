@@ -1,0 +1,110 @@
+.wrapper {
+    display: grid;
+    padding: 5rem 100px;
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+    background-color: var(--bg-session);
+}
+
+.container {
+    display: grid;
+    justify-content: center;
+    grid-template-rows: auto;
+    grid-template-columns: 40% 30% 30%;
+}
+
+// ============[Content] ============
+.category {
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--hover);
+}
+
+.left,
+.mid,
+.right {
+    display: grid;
+}
+
+.mid,
+.right {
+    grid-template-rows: 20% 50% 30%;
+
+    p {
+        padding: 10px 0;
+        font-weight: 500;
+        color: var(--primary);
+    }
+
+    .ico {
+        display: flex;
+        i {
+            width: 50px;
+            height: 50px;
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 15px;
+            color: var(--hover);
+            border: 3px solid var(--hover);
+        }
+    }
+}
+
+.left {
+    margin-right: 50px;
+    grid-template-rows: auto auto 200px;
+    .logo {
+        display: flex;
+        .icon {
+            font-size: 50px;
+            color: var(--text-logo);
+        }
+
+        p {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--primary);
+
+            span {
+                color: var(--text-logo);
+            }
+        }
+    }
+
+    .copyright {
+        margin: 10px 0;
+    }
+
+    .email {
+        display: grid;
+        align-items: end;
+        grid-template-rows: 100px 100px;
+        grid-template-columns: auto;
+
+        label {
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        input {
+            width: 100%;
+            height: 50px;
+            padding: 0 10px;
+            border-radius: 10px;
+            border: 3px solid var(--hover);
+
+            &:focus {
+                outline: var(--hover);
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 25.9375em) {
+    .wrapper {
+        display: none;
+    }
+}
