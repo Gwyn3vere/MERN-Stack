@@ -1,28 +1,35 @@
 import classNames from 'classnames/bind';
 import styles from './Rooms.module.scss';
 import image from '~/assets/images';
-import useActive from './useActive';
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { useState, useEffect } from 'react';
+import useTab from './useTab';
+import useSort from './useSort';
+import { FaThList, FaSortAmountDownAlt, FaSortAmountDown, FaSortAlphaDown } from 'react-icons/fa';
+import { BsFillCalendarFill, BsStarFill } from 'react-icons/bs';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Rooms() {
+    // Tạo active cho tabList
     const tabList = [
-        { id: 1, name: 'Danh sách' },
-        { id: 2, name: 'Giá từ cao đến thấp' },
-        { id: 3, name: 'Giá từ thấp đến cao' },
-        { id: 4, name: 'Theo tên (A - Z)' },
+        { id: 1, icons: <FaThList />, name: 'Danh sách' },
+        { id: 2, icons: <FaSortAmountDown />, name: 'Giá từ cao đến thấp' },
+        { id: 3, icons: <FaSortAmountDownAlt />, name: 'Giá từ thấp đến cao' },
+        { id: 4, icons: <FaSortAlphaDown />, name: 'Theo tên (A - Z)' },
     ];
-    const { activeId, handleItemClick } = useActive();
-    const [sort, setSort] = useState(tabList[0]);
-    const [rooms, setRooms] = useState([
+    const [activeTab, onChangeTab] = useTab(tabList[0].id);
+    const handleClickTab = (tabIndex) => {
+        onChangeTab(tabIndex);
+    };
+
+    // Tạo SortBy
+    const rooms = [
         {
             id: 1,
             name: 'Room Name A',
             rating: 4,
             type: 'VIP',
-            thumnbail: image.bghotel,
+            thumnbail: image.bgChuaLinhUng,
             acreage: '2 người lớn, 1 trẻ em',
             price: 5000000,
         },
@@ -31,7 +38,7 @@ function Rooms() {
             name: 'Room Name C',
             rating: 5,
             type: 'VIP',
-            thumnbail: image.bghotel,
+            thumnbail: image.bgChuaLinhUng,
             acreage: '2 người lớn, 1 trẻ em',
             price: 7000000,
         },
@@ -40,7 +47,7 @@ function Rooms() {
             name: 'Room Name E',
             rating: 5,
             type: 'VIP',
-            thumnbail: image.bghotel,
+            thumnbail: image.bgChuaLinhUng,
             acreage: '2 người lớn, 1 trẻ em',
             price: 1000000,
         },
@@ -49,7 +56,7 @@ function Rooms() {
             name: 'Room Name B',
             rating: 5,
             type: 'VIP',
-            thumnbail: image.bghotel,
+            thumnbail: image.bgChuaLinhUng,
             acreage: '2 người lớn, 1 trẻ em',
             price: 1000000,
         },
@@ -58,70 +65,36 @@ function Rooms() {
             name: 'Room Name D',
             rating: 5,
             type: 'VIP',
-            thumnbail: image.bghotel,
+            thumnbail: image.bgChuaLinhUng,
             acreage: '2 người lớn, 1 trẻ em',
             price: 1000000,
         },
-    ]);
+    ];
 
-    const sortRooms = () => {
-        const sortedRooms = [...rooms];
-        switch (sort.id) {
-            case 1:
-                sortedRooms.sort((a, b) => a.id - b.id);
-                break;
-            case 2:
-                sortedRooms.sort((a, b) => b.price - a.price);
-                break;
-            case 3:
-                sortedRooms.sort((a, b) => a.price - b.price);
-                break;
-            case 4:
-                sortedRooms.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-            default:
-                break;
-        }
-        setRooms(sortedRooms);
+    const [activeTabId, setActiveTabId] = useState(1);
+    const sortedRooms = useSort(rooms, activeTabId);
+
+    const handleTabClick = (tabId) => {
+        setActiveTabId(tabId);
     };
 
-    useEffect(() => {
-        handleItemClick(1);
-    }, []);
-
-    useEffect(() => {
-        sortRooms();
-    }, [sort]);
-
-    const renderStars = (count) => {
-        const stars = [];
-
-        for (let i = 0; i < count; i++) {
-            stars.push(<AiFillStar key={i} />);
-        }
-
-        for (let i = count; i < 5; i++) {
-            stars.push(<AiOutlineStar key={i} />);
-        }
-
-        return stars;
-    };
     return (
         <main className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('banner')}>
-                    <img src={image.bgChuaLinhUng} />
+                    <img src={image.bgChuaLinhUng} alt="" />
                     <p>Danh sách phòng</p>
                 </div>
                 <div className={cx('room')}>
                     <div className={cx('table')}>
                         {tabList.map((tab) => {
                             return (
-                                <div className={cx('tab')} key={tab.id} onClick={() => handleItemClick(tab.id)}>
+                                <div className={cx('tab')} key={tab.id} onClick={() => handleTabClick(tab.id)}>
                                     <div
-                                        className={cx('link', activeId === tab.id ? 'active' : '')}
-                                        onClick={() => setSort(tab)}
+                                        className={cx('link', activeTab === tab.id ? 'active' : '')}
+                                        onClick={() => handleClickTab(tab.id)}
                                     >
+                                        <i> {tab.icons} </i>
                                         <p>{tab.name}</p>
                                     </div>
                                 </div>
@@ -129,14 +102,53 @@ function Rooms() {
                         })}
                     </div>
                     <div className={cx('list')}>
-                        {rooms.map((item) => {
-                            return (
-                                <div key={item.id}>
-                                    <p>{item.name}</p>
-                                    <p>{item.price}</p>
+                        <div className={cx('left')}>
+                            {sortedRooms.map((item) => {
+                                return (
+                                    <div className={cx('card')} key={item.id}>
+                                        <div className={cx('thumbnail')}>
+                                            <img src={item.thumnbail} alt="" />
+                                            <div className={cx('type')}>
+                                                <div className={cx('item')}>
+                                                    <i>
+                                                        <BsFillCalendarFill></BsFillCalendarFill>
+                                                    </i>
+                                                    <p> {item.type} </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={cx('info')}>
+                                            <p className={cx('name')}>{item.name}</p>
+                                            <p className={cx('desc')}>{item.acreage}</p>
+                                            <div className={cx('price')}>
+                                                <p> {Number(item.price).toLocaleString()} VND</p>
+                                                <p className={cx('rate')}>
+                                                    <i>
+                                                        <BsStarFill></BsStarFill>
+                                                    </i>
+                                                    {item.rating}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        <div className={cx('right')}>
+                            <div className={cx('sidebar')}>
+                                <div className={cx('titlebar')}>
+                                    <p>Đặt phòng</p>
+                                    <span>Lên kế hoạt cho kì nghỉ tuyệt vời của bạn!</span>
                                 </div>
-                            );
-                        })}
+                                <div className={cx('input-group')}>
+                                    <input type="search" placeholder="Tìm kiếm phòng" />
+                                    <input type="text" placeholder="Loại phòng" />
+                                    <input type="date" />
+                                </div>
+                                <div className={cx('')}></div>
+                                <div className={cx('')}></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
