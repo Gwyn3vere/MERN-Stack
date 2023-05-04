@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import styles from './Rooms.module.scss';
+import styles from './Details.module.scss';
 import image from '~/assets/images';
 import useTab from './useTab';
 import useSort from './useSort';
@@ -9,13 +9,14 @@ import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
-function Rooms() {
+function Details() {
     // Tạo active cho tabList
     const tabList = [
-        { id: 1, icons: <FaThList />, name: 'Danh sách' },
-        { id: 2, icons: <FaSortAmountDown />, name: 'Giá từ cao đến thấp' },
+        { id: 1, icons: <FaThList />, name: 'Thông tin' },
+        { id: 2, icons: <FaSortAmountDown />, name: 'Thư viện' },
         { id: 3, icons: <FaSortAmountDownAlt />, name: 'Giá từ thấp đến cao' },
         { id: 4, icons: <FaSortAlphaDown />, name: 'Theo tên (A - Z)' },
+        { id: 5, icons: <FaSortAlphaDown />, name: 'Theo tên (A - Z)' },
     ];
     const [activeTab, onChangeTab] = useTab(tabList[0].id);
     const handleClickTab = (tabIndex) => {
@@ -187,4 +188,4 @@ function Rooms() {
     );
 }
 
-export default Rooms;
+export default Details;

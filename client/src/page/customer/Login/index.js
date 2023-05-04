@@ -1,9 +1,10 @@
 import classNames from 'classnames/bind';
 import styles from './Login.module.scss';
-// import image from '~/assets/images';
-import { SiGmail } from 'react-icons/si';
-import { BsFacebook } from 'react-icons/bs';
-import { AiFillInstagram } from 'react-icons/ai';
+import { FcGoogle } from 'react-icons/fc';
+import { BsFacebook, BsApple } from 'react-icons/bs';
+import { FaFoursquare } from 'react-icons/fa';
+import image from '~/assets/images';
+import { NavLink } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -11,38 +12,81 @@ function Login() {
     return (
         <main className={cx('wrapper')}>
             <div className={cx('container')}>
-                <div className={cx('tittle')}></div>
-                <div className={cx('card')}>
-                    <form className={cx('login')}>
-                        <div className={cx('name')}>
-                            <h1>Đăng nhập</h1>
+                <div className={cx('form')}>
+                    <div className={cx('left')}>
+                        <img src={image.Login} alt="" />
+                    </div>
+                    <form className={cx('right')}>
+                        <p className={cx('title')}>
+                            <FaFoursquare className={cx('logo')}></FaFoursquare>Đăng nhập
+                        </p>
+                        <div className={cx('input-group')}>
+                            <div className={cx('input')}>
+                                <label htmlFor="username">Email</label>
+                                <input type="email" id="username" />
+                            </div>
+                            <div className={cx('input')}>
+                                <label htmlFor="password">Mật khẩu</label>
+                                <input type="password" id="password" />
+                            </div>
                         </div>
-                        <div className={cx('form-group')}>
-                            <input type="text" id="username" placeholder="Tên đăng nhập" />
+                        <div className={cx('forgot')}>
+                            <div className={cx('check')}>
+                                <input type="checkbox" id="checkbox" />
+                                <label htmlFor="checkbox">Nhớ mật khẩu</label>
+                            </div>
+                            <a href="http://localhost:3000/dang-nhap">
+                                <p>Quên mật khẩu?</p>
+                            </a>
                         </div>
-                        <div className={cx('form-group')}>
-                            <input type="password" id="password" placeholder="Mật khẩu" />
+                        <div className={cx('button')}>
+                            <button type="submit">Đăng nhập</button>
                         </div>
-                        <a className={cx('forget-pass')} href="http://localhost:3000/dang-nhap">
-                            <div className={cx('forget')}>Quên mật khẩu</div>
-                        </a>
-                        <div className={cx('form-group')}>
-                            <div className={cx('submit')}>Đăng nhập</div>
+                        <div className={cx('or')}>
+                            <div className={cx('border')}></div>
+                            <div className={cx('text')}>hoặc</div>
+                            <div className={cx('border')}></div>
                         </div>
-                        <div className={cx('method')}>Hoặc tiếp tục với</div>
                         <div className={cx('orther')}>
-                            <div className={cx('icon')}>
-                                <SiGmail></SiGmail>
-                            </div>
-                            <div className={cx('icon')}>
-                                <BsFacebook></BsFacebook>
-                            </div>
-                            <div className={cx('icon')}>
-                                <AiFillInstagram></AiFillInstagram>
-                            </div>
+                            <a href="http://localhost:3000/dang-nhap">
+                                <div className={cx('method')}>
+                                    <i>
+                                        <FcGoogle></FcGoogle>
+                                    </i>
+                                    <p>Tiếp tục với Google</p>
+                                </div>
+                            </a>
+                            <a href="http://localhost:3000/dang-nhap">
+                                <div className={cx('method')}>
+                                    <i>
+                                        <BsFacebook></BsFacebook>
+                                    </i>
+                                    <p>Tiếp tục với Facebook</p>
+                                </div>
+                            </a>
+                            <a href="http://localhost:3000/dang-nhap">
+                                <div className={cx('method')}>
+                                    <i>
+                                        <BsApple></BsApple>
+                                    </i>
+                                    <p>Tiếp tục với Apple</p>
+                                </div>
+                            </a>
                         </div>
-                        <div className={cx('register')}>
-                            Chưa có tài khoản? <a href="http://localhost:3000/dang-ky">Đăng ký</a>
+                        <div className={cx('or')}>
+                            <div className={cx('border')}></div>
+                            <div className={cx('text')}>Chưa có tài khoản ?</div>
+                            <div className={cx('border')}></div>
+                        </div>
+                        <div className={cx('had')}>
+                            <div className={cx('login')}>
+                                <p>Đăng nhập</p>
+                            </div>
+                            <NavLink to={'http://localhost:3000/dang-ky'}>
+                                <div className={cx('register')}>
+                                    <p>Đăng ký</p>
+                                </div>
+                            </NavLink>
                         </div>
                     </form>
                 </div>
