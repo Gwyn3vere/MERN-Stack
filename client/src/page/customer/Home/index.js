@@ -5,9 +5,8 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Script from './script';
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { FaHotel, FaServicestack } from 'react-icons/fa';
-import { BsFillCalendarEventFill } from 'react-icons/bs';
+import { BsFillCalendarEventFill, BsFillCalendarFill, BsStarFill } from 'react-icons/bs';
 import { MdLocationOn } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 import HeaderMB from '~/components/Layout/CustomerLayout/HeaderMB';
@@ -18,51 +17,57 @@ function Home() {
     const rooms = [
         {
             id: 1,
-            name: 'Room Name 1',
+            name: 'Room Name A',
             rating: 4,
-            desc: 'Lorem ipsum dolor sit amet consectrtuer adipsicing el....',
-            price: '2300000',
-            thumbnail: image.bgBaNaHills,
+            type: 'VIP',
+            thumnbail: image.bgChuaLinhUng,
+            acreage: '2 người lớn, 1 trẻ em',
+            price: 5000000,
         },
         {
             id: 2,
-            name: 'Room Name 2',
+            name: 'Room Name C',
             rating: 5,
-            desc: 'Lorem ipsum dolor sit amet consectrtuer adipsicing el....',
-            price: '2300000',
-            thumbnail: image.bgBaNaHills,
+            type: 'VIP',
+            thumnbail: image.bgChuaLinhUng,
+            acreage: '2 người lớn, 1 trẻ em',
+            price: 7000000,
         },
         {
             id: 3,
-            name: 'Room Name 3',
-            rating: 3,
-            desc: 'Lorem ipsum dolor sit amet consectrtuer adipsicing el....',
-            price: '2300000',
-            thumbnail: image.bgBaNaHills,
+            name: 'Room Name E',
+            rating: 5,
+            type: 'VIP',
+            thumnbail: image.bgChuaLinhUng,
+            acreage: '2 người lớn, 1 trẻ em',
+            price: 1000000,
         },
         {
             id: 4,
-            name: 'Room Name 4',
+            name: 'Room Name B',
             rating: 5,
-            desc: 'Lorem ipsum dolor sit amet consectrtuer adipsicing el....',
-            price: '2300000',
-            thumbnail: image.bgBaNaHills,
+            type: 'VIP',
+            thumnbail: image.bgChuaLinhUng,
+            acreage: '2 người lớn, 1 trẻ em',
+            price: 1000000,
         },
         {
             id: 5,
-            name: 'Room Name 5',
-            rating: 3,
-            desc: 'Lorem ipsum dolor sit amet consectrtuer adipsicing el....',
-            price: '2300000',
-            thumbnail: image.bgBaNaHills,
+            name: 'Room Name D',
+            rating: 5,
+            type: 'VIP',
+            thumnbail: image.bgChuaLinhUng,
+            acreage: '2 người lớn, 1 trẻ em',
+            price: 1000000,
         },
         {
             id: 6,
-            name: 'Room Name 6',
-            rating: 4,
-            desc: 'Lorem ipsum dolor sit amet consectrtuer adipsicing el....',
-            price: '2300000',
-            thumbnail: image.bgBaNaHills,
+            name: 'Room Name F',
+            rating: 5,
+            type: 'VIP',
+            thumnbail: image.bgChuaLinhUng,
+            acreage: '2 người lớn, 1 trẻ em',
+            price: 1000000,
         },
     ];
 
@@ -72,20 +77,6 @@ function Home() {
         { id: 3, name: 'Service', icon: <FaServicestack />, url: 'http://localhost:3000/' },
         { id: 4, name: 'Event', icon: <BsFillCalendarEventFill />, url: 'http://localhost:3000/' },
     ];
-
-    const renderStars = (count) => {
-        const stars = [];
-
-        for (let i = 0; i < count; i++) {
-            stars.push(<AiFillStar key={i} />);
-        }
-
-        for (let i = count; i < 5; i++) {
-            stars.push(<AiOutlineStar key={i} />);
-        }
-
-        return stars;
-    };
 
     const lordicon = [
         {
@@ -148,7 +139,7 @@ function Home() {
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 5,
+        slidesToShow: 4,
         slidesToScroll: 1,
         initialSlide: 0,
         arrows: false,
@@ -241,16 +232,33 @@ function Home() {
                             {rooms.map((item) => {
                                 return (
                                     <div className={cx('card')} key={item.id}>
-                                        <div className={cx('room-img')}>
-                                            <img src={item.thumbnail} alt="" />
-                                            <div className={cx('review')}>
-                                                <div className={cx('left')}>
-                                                    <p className={cx('name-room')}> {item.name} </p>
-                                                    <span> {renderStars(item.rating)} </span>
-                                                    <p> {item.desc} </p>
+                                        <div className={cx('thumbnail')}>
+                                            <a href="http://localhost:3000/chi-tiet">
+                                                <figure>
+                                                    <img src={item.thumnbail} alt="" />
+                                                </figure>
+                                            </a>
+                                            <div className={cx('type')}>
+                                                <div className={cx('item')}>
+                                                    <i>
+                                                        <BsFillCalendarFill></BsFillCalendarFill>
+                                                    </i>
+                                                    <p> {item.type} </p>
                                                 </div>
-                                                <div className={cx('right')}>
-                                                    <p>{Number(item.price).toLocaleString()} VND</p>
+                                            </div>
+                                        </div>
+                                        <div className={cx('info')}>
+                                            <a href="http://localhost:3000/chi-tiet" className={cx('hover')}>
+                                                <p className={cx('name')}>{item.name}</p>
+                                            </a>
+                                            <p className={cx('content')}>{item.acreage}</p>
+                                            <div className={cx('price')}>
+                                                <p> {Number(item.price).toLocaleString()} VND</p>
+                                                <div className={cx('rate')}>
+                                                    <span>
+                                                        <BsStarFill></BsStarFill>
+                                                    </span>
+                                                    <p>{item.rating}</p>
                                                 </div>
                                             </div>
                                         </div>

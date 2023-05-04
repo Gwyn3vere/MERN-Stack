@@ -118,7 +118,7 @@ function Rooms() {
                                 return (
                                     <div className={cx('card')} key={item.id}>
                                         <div className={cx('thumbnail')}>
-                                            <a href="http://localhost:3000/phong">
+                                            <a href="http://localhost:3000/chi-tiet">
                                                 <figure>
                                                     <img src={item.thumnbail} alt="" />
                                                 </figure>
@@ -133,18 +133,18 @@ function Rooms() {
                                             </div>
                                         </div>
                                         <div className={cx('info')}>
-                                            <a href="http://localhost:3000/phong" className={cx('hover')}>
+                                            <a href="http://localhost:3000/chi-tiet" className={cx('hover')}>
                                                 <p className={cx('name')}>{item.name}</p>
                                             </a>
                                             <p className={cx('desc')}>{item.acreage}</p>
                                             <div className={cx('price')}>
                                                 <p> {Number(item.price).toLocaleString()} VND</p>
-                                                <p className={cx('rate')}>
-                                                    <i>
+                                                <div className={cx('rate')}>
+                                                    <span>
                                                         <BsStarFill></BsStarFill>
-                                                    </i>
-                                                    {item.rating}
-                                                </p>
+                                                    </span>
+                                                    <p>{item.rating}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
