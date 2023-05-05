@@ -166,6 +166,7 @@
     }
 
     .options {
+        padding-left: 100px;
         display: flex;
         cursor: pointer;
 
@@ -174,9 +175,21 @@
             margin-left: 10px;
         }
 
+        .default {
+            display: flex;
+        }
+
         .right-btn:hover {
             transition: 0.5s;
             color: var(--secondary);
+        }
+
+        .flex {
+            display: flex;
+
+            .email {
+                font-size: 16px;
+            }
         }
     }
 }

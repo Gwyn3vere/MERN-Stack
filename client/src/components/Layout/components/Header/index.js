@@ -5,8 +5,10 @@ import { FaFacebookF } from 'react-icons/fa';
 import { TfiEmail } from 'react-icons/tfi';
 import { BsFillTelephoneFill, BsTwitter, BsPinterest, BsInstagram } from 'react-icons/bs';
 import { IoLocationOutline } from 'react-icons/io5';
-import { BiChevronDown, BiLogInCircle, BiMenu, BiSearch, BiAdjust } from 'react-icons/bi';
+import { RxAvatar } from 'react-icons/rx';
+import { BiChevronDown, BiLogInCircle, BiLogOutCircle, BiMenu, BiSearch, BiAdjust } from 'react-icons/bi';
 import useActive from './useActive';
+import authApi from '~/api/auth';
 
 const cx = classNames.bind(styles);
 
@@ -20,6 +22,13 @@ const menuList = [
 
 function Header() {
     const { activeId, handleItemClick } = useActive();
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+
+    const handleLogout = () => {
+        authApi.logout();
+        window.location.reload();
+    };
     return (
         <header className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -62,11 +71,19 @@ function Header() {
                                 <p>Germany</p>
                             </div>
                         </div>
-                        <div className={cx('login-btn')}>
-                            <a href="http://localhost:3000/dang-nhap">
-                                <BiLogInCircle></BiLogInCircle>
-                            </a>
-                        </div>
+                        {user ? (
+                            <div className={cx('login-btn')}>
+                                <a href="http://localhost:3000/" onClick={handleLogout}>
+                                    <BiLogOutCircle></BiLogOutCircle>
+                                </a>
+                            </div>
+                        ) : (
+                            <div className={cx('login-btn')}>
+                                <a href="http://localhost:3000/dang-nhap">
+                                    <BiLogInCircle></BiLogInCircle>
+                                </a>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className={cx('bot-bar')}>
@@ -90,19 +107,30 @@ function Header() {
                     <div className={cx('options')}>
                         <div className={cx('right-btn')}>
                             <p>
-                                <BiAdjust></BiAdjust>
-                            </p>
-                        </div>
-                        <div className={cx('right-btn')}>
-                            <p>
                                 <BiSearch></BiSearch>
                             </p>
                         </div>
-                        <div className={cx('right-btn')}>
-                            <p>
-                                <BiMenu></BiMenu>
-                            </p>
-                        </div>
+                        {user ? (
+                            <div className={cx('right-btn', 'flex')}>
+                                {/* <p className={cx('email')}> {user.email} </p> */}
+                                <p>
+                                    <RxAvatar></RxAvatar>
+                                </p>
+                            </div>
+                        ) : (
+                            <div className={cx('default')}>
+                                <div className={cx('right-btn')}>
+                                    <p>
+                                        <BiAdjust></BiAdjust>
+                                    </p>
+                                </div>
+                                <div className={cx('right-btn')}>
+                                    <p>
+                                        <BiMenu></BiMenu>
+                                    </p>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

@@ -24,11 +24,6 @@ function Header() {
                     <div className={cx('icon')}>
                         <BsFillBellFill></BsFillBellFill>
                     </div>
-                    <div className={cx('button')}>
-                        <a href="http://localhost:3000/admin">
-                            <div className={cx('login')}>login</div>
-                        </a>
-                    </div>
                 </div>
             </div>
         </header>

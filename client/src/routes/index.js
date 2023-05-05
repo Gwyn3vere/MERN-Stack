@@ -1,5 +1,7 @@
+import PrivateRoute from './private';
+
 // OrtherLayout
-import { OrtherLayout } from '~/components/Layout';
+import { OrtherLayout, AdminLayout } from '~/components/Layout';
 
 // AdminLayout
 import Overview from '~/page/admin/Overview';
@@ -24,9 +26,9 @@ const publicRoutes = [
 
 // Private routes
 const privateRoutes = [
-    { path: '/overview', component: Overview },
-    { path: '/create-room', component: Createroom },
-    { path: '/room', component: Room },
+    { path: '/overview', component: Overview, element: <PrivateRoute />, layout: AdminLayout },
+    { path: '/create-room', component: Createroom, element: <PrivateRoute />, layout: AdminLayout },
+    { path: '/room', component: Room, element: <PrivateRoute />, layout: AdminLayout },
 ];
 
 export { publicRoutes, privateRoutes };

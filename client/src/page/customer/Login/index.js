@@ -1,33 +1,80 @@
 import classNames from 'classnames/bind';
 import styles from './Login.module.scss';
+import authApi from '~/api/auth';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { FcGoogle } from 'react-icons/fc';
 import { BsFacebook, BsApple } from 'react-icons/bs';
 import { FaFoursquare } from 'react-icons/fa';
 import image from '~/assets/images';
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function Login() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+    const handleChangeEmail = (event) => {
+        setEmail(event.target.value);
+    };
+
+    const handleChangePassword = (event) => {
+        setPassword(event.target.value);
+    };
+    const handleLogin = (event) => {
+        event.preventDefault();
+        if (!email || !password) {
+            toast.error('Vui lòng nhập đầy đủ thông tin');
+            return;
+        }
+        authApi
+            .login(email, password)
+            .then((response) => {
+                toast.success('Đăng nhập thành công!', {
+                    position: toast.POSITION.TOP_RIGHT,
+                    autoClose: 3000,
+                });
+                setTimeout(() => {
+                    navigate('/');
+                }, 3000);
+            })
+            .catch((error) => {
+                if (error.response && error.response.status === 401) {
+                    toast.error('Email hoặc mật khẩu không chính xác!', {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 3000,
+                    });
+                } else {
+                    toast.error('Đăng nhập không thành công!', {
+                        position: toast.POSITION.TOP_RIGHT,
+                        autoClose: 3000,
+                    });
+                }
+            });
+    };
     return (
         <main className={cx('wrapper')}>
+            <ToastContainer />
             <div className={cx('container')}>
                 <div className={cx('form')}>
                     <div className={cx('left')}>
                         <img src={image.Login} alt="" />
                     </div>
-                    <form className={cx('right')}>
+                    <form className={cx('right')} onSubmit={handleLogin}>
                         <p className={cx('title')}>
                             <FaFoursquare className={cx('logo')}></FaFoursquare>Đăng nhập
                         </p>
                         <div className={cx('input-group')}>
                             <div className={cx('input')}>
                                 <label htmlFor="username">Email</label>
-                                <input type="email" id="username" />
+                                <input type="email" id="username" value={email} onChange={handleChangeEmail} />
                             </div>
                             <div className={cx('input')}>
                                 <label htmlFor="password">Mật khẩu</label>
-                                <input type="password" id="password" />
+                                <input type="password" id="password" value={password} onChange={handleChangePassword} />
                             </div>
                         </div>
                         <div className={cx('forgot')}>

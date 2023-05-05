@@ -1,18 +1,17 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { publicRoutes, privateRoutes } from './routes';
-import { CustomerLayout, AdminLayout } from './components/Layout';
+import { CustomerLayout } from './components/Layout';
 import { Fragment } from 'react';
 
 function App() {
-    const isCustomerLayout = true; // Set to true or false depending on the type of layout to be used
-
+    const user = JSON.parse(localStorage.getItem('user'));
     return (
         <Router>
             <div className="App">
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         const Page = route.component;
-                        let Layout = isCustomerLayout ? CustomerLayout : AdminLayout;
+                        let Layout = CustomerLayout;
 
                         if (route.layout) {
                             Layout = route.layout;
@@ -33,7 +32,7 @@ function App() {
                         );
                     })}
                     {privateRoutes.map((route, index) => {
-                        let Layout = isCustomerLayout === false ? CustomerLayout : AdminLayout;
+                        let Layout = CustomerLayout;
                         const Page = route.component;
                         if (route.layout) {
                             Layout = route.layout;
@@ -45,9 +44,13 @@ function App() {
                                 key={index}
                                 path={route.path}
                                 element={
-                                    <Layout>
-                                        <Page />
-                                    </Layout>
+                                    user?.token ? (
+                                        <Layout>
+                                            <Page />
+                                        </Layout>
+                                    ) : (
+                                        <Navigate to="/dang-nhap" replace />
+                                    )
                                 }
                             />
                         );
