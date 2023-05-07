@@ -10,18 +10,12 @@ const { roomValidator, validate } = require("../middlewares/roomValidator");
 router.get("/", roomController.readRoom);
 router.post(
   "/create",
-  upload.fields([
-    { name: "thumbnailRoom", maxCount: 1 },
-    { name: "libraryRoom", maxCount: 1 },
-  ]),
+
   roomController.createRoom
 );
 router.put(
   "/update/:_id",
-  upload.fields([
-    { name: "thumbnailRoom", maxCount: 1 },
-    { name: "libraryRoom", maxCount: 1 },
-  ]),
+
   roomController.updateRoom
 );
 router.delete("/delete/:_id", roomController.deleteRoom);

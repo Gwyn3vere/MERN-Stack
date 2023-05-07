@@ -28,7 +28,7 @@ const privateRoutes = [
     { path: '/overview', component: Overview, layout: AdminLayout, role: ['admin'] },
     { path: '/create-room', component: Createroom, layout: AdminLayout, role: ['admin'] },
     { path: '/room', component: Room, layout: AdminLayout, role: ['admin'] },
-    { path: '/dat-phong', component: Order, role: ['user', 'admin'] },
+    { path: '/dat-phong', component: Order, role: ['customer', 'admin'] },
 ];
 
 export { publicRoutes, privateRoutes };

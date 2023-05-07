@@ -12,37 +12,51 @@ class RoomController {
   }
 
   async createRoom(req, res) {
+    const {
+      nameRoom,
+      slugRoom,
+      priceRoom,
+      rateRoom,
+      quantityRoom,
+      numberCustomer,
+      bedRoom,
+      descRoom,
+      typeRoom,
+      acreageRoom,
+      codeRoom,
+      amenitiesRoom,
+      thumbnailRoom,
+    } = req.body;
+
+    const formattedAmenitiesRoom = amenitiesRoom
+      .split(",")
+      .map((amenity) => amenity.trim());
+    const formattedThumbnailRoom = {
+      url: thumbnailRoom.url,
+      public_id: thumbnailRoom.public_id,
+    };
+
+    const newRoom = new Room({
+      nameRoom,
+      slugRoom,
+      priceRoom,
+      rateRoom,
+      quantityRoom,
+      numberCustomer,
+      bedRoom,
+      descRoom,
+      typeRoom,
+      acreageRoom,
+      codeRoom,
+      amenitiesRoom: formattedAmenitiesRoom,
+      thumbnailRoom: formattedThumbnailRoom,
+    });
+
     try {
-      // Lưu ảnh lên cloudinary và lấy URL
-      const thumbnailResult = await cloudinary.uploader.upload(
-        req.files.thumbnailRoom[0].path
-      );
-      const libraryResult = await cloudinary.uploader.upload(
-        req.files.libraryRoom[0].path
-      );
-      // Lưu thông tin phòng và URL ảnh vào database
-      const newRoom = new Room({
-        nameRoom: req.body.nameRoom,
-        slugRoom: req.body.slugRoom,
-        priceRoom: req.body.priceRoom,
-        typeRoom: req.body.typeRoom,
-        numberCustomer: req.body.numberCustomer,
-        acreageRoom: req.body.acreageRoom,
-        descRoom: req.body.descRoom,
-        serviceRoom: req.body.serviceRoom,
-        thumbnailRoom: {
-          url: thumbnailResult.url,
-          public_id: thumbnailResult.public_id,
-        },
-        libraryRoom: {
-          url: libraryResult.url,
-          public_id: libraryResult.public_id,
-        },
-      });
       await newRoom.save();
-      res.status(201).send(newRoom);
-    } catch (err) {
-      res.status(500).json({ error: err });
+      res.status(201).json({ message: "Room created successfully", newRoom });
+    } catch (error) {
+      res.status(409).json({ message: error.message });
     }
   }
 

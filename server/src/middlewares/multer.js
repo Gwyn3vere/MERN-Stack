@@ -1,15 +1,15 @@
+const path = require("path");
 const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads/");
+    cb(null, path.join(__dirname, "..", "..", "client", "public", "uploads"));
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+    cb(null, file.originalname);
   },
 });
 
-// Khởi tạo middleware upload
 const upload = multer({ storage: storage });
 
-module.exports = multer({ storage, upload });
+module.exports = { upload };

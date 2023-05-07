@@ -6,20 +6,23 @@ import { Fragment } from 'react';
 function App() {
     // Kiểm tra xem người dùng có đang đăng nhập hay không
     const isLoggedIn = () => {
-        return !!localStorage.getItem('token');
+        return localStorage.getItem('token');
     };
+    console.log(isLoggedIn());
 
     // Kiểm tra xem người dùng có quyền truy cập vào route này hay không
     const hasAccess = (route) => {
         const userRole = localStorage.getItem('role');
 
-        // Kiểm tra nếu route không có cấu hình role thì mặc định cho phép truy cập
-        if (!route.role) {
+        if (!isLoggedIn()) {
+            return false;
+        }
+
+        if (!route.role || route.role.includes(userRole)) {
             return true;
         }
 
-        // Kiểm tra xem người dùng có đủ quyền để truy cập vào route hay không
-        return route.role.includes(userRole);
+        return false;
     };
     return (
         <Router>
@@ -67,7 +70,7 @@ function App() {
                                             <Page />
                                         </Layout>
                                     ) : (
-                                        <Navigate to="/dang-nhap" />
+                                        <Navigate to="/" />
                                     )
                                 }
                                 role={route.role}
