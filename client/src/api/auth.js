@@ -9,8 +9,9 @@ const register = (email, password) => {
 const login = (email, password) => {
     return axios.post(API_URL + '/login', { email, password }).then((response) => {
         if (response.data.token) {
-            localStorage.setItem('user', JSON.stringify(response.data.user)); // lưu trữ thông tin user vào localStorage
-            localStorage.setItem('token', response.data.token); // lưu trữ token vào localStorage
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('role', response.data.user.role);
         }
         return response.data;
     });

@@ -1,5 +1,3 @@
-import PrivateRoute from './private';
-
 // OrtherLayout
 import { OrtherLayout, AdminLayout } from '~/components/Layout';
 
@@ -12,6 +10,7 @@ import Room from '~/page/admin/Managerment/Room';
 import Home from '~/page/customer/Home';
 import Rooms from '~/page/customer/Rooms';
 import Details from '~/page/customer/Details';
+import Order from '~/page/customer/Order';
 import Login from '~/page/customer/Login';
 import Register from '~/page/customer/Register';
 
@@ -26,9 +25,10 @@ const publicRoutes = [
 
 // Private routes
 const privateRoutes = [
-    { path: '/overview', component: Overview, element: <PrivateRoute />, layout: AdminLayout },
-    { path: '/create-room', component: Createroom, element: <PrivateRoute />, layout: AdminLayout },
-    { path: '/room', component: Room, element: <PrivateRoute />, layout: AdminLayout },
+    { path: '/overview', component: Overview, layout: AdminLayout, role: ['admin'] },
+    { path: '/create-room', component: Createroom, layout: AdminLayout, role: ['admin'] },
+    { path: '/room', component: Room, layout: AdminLayout, role: ['admin'] },
+    { path: '/dat-phong', component: Order, role: ['user', 'admin'] },
 ];
 
 export { publicRoutes, privateRoutes };
