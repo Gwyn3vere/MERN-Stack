@@ -44,6 +44,7 @@
         "lord-icon-element": "^4.1.1",
         "lottie-web": "^5.11.0",
         "react-app-rewired": "^2.2.1",
+        "react-dropzone": "^14.2.3",
         "react-icons": "^4.8.0",
         "react-redux": "^8.0.5",
         "react-slick": "^0.29.0",

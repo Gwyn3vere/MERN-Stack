@@ -2,16 +2,20 @@
 import classNames from 'classnames/bind';
 import styles from './Createroom.module.scss';
 import image from '~/assets/images';
-import useImageUpload from './useImageUpload';
-import { BsFillImageFill } from 'react-icons/bs';
-import useLibraryUpload from './useLibraryUpload';
+import React, { useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { AiFillFileImage } from 'react-icons/ai';
 
 const cx = classNames.bind(styles);
 
 function Createroom() {
-    const { imageUrl, imageLabel, thumbnailVisible, handleImageChange } = useImageUpload();
-    const { images, handleInputChange } = useLibraryUpload();
+    const [files, setFiles] = useState([]);
 
+    const onDrop = (acceptedFiles) => {
+        setFiles(acceptedFiles);
+    };
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
     return (
         <main className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -34,128 +38,100 @@ function Createroom() {
                 <form className={cx('form')} encType="multipart/form-data">
                     <div className={cx('row')}>
                         <div className={cx('left')}>
-                            <div className={cx('left-group-form')}>
+                            <div className={cx('group')}>
                                 <label htmlFor="nameRoom">Tên phòng</label>
-                                <input type="text" className={cx('nameRoom')} id="nameRoom" name="nameRoom" />
-                                <p>Tên phòng một được dưới 10 kí tự.</p>
+                                <input type="text" id="nameRoom" />
                             </div>
-                            <div className={cx('left-group-form')}>
-                                <label htmlFor="slugRoom">Slug phòng</label>
-                                <input type="text" className={cx('slugRoom')} id="slugRoom" name="slugRoom" />
+                            <div className={cx('group')}>
+                                <label htmlFor="slugRoom">Tên phòng</label>
+                                <input type="text" id="slugRoom" />
                             </div>
-                            <div className={cx('left-group-select')}>
-                                <div className={cx('selection')}>
+                            <div className={cx('number')}>
+                                <div className={cx('group', 'float1')}>
+                                    <label htmlFor="quantityRoom">số lượng phòng</label>
+                                    <input type="number" id="quantityRoom" />
+                                </div>
+                                <div className={cx('group', 'float2')}>
+                                    <label htmlFor="priceRoom">Giá phòng</label>
+                                    <input type="number" id="priceRoom" />
+                                </div>
+                            </div>
+                            <div className={cx('select')}>
+                                <div className={cx('group', 'float1')}>
                                     <label htmlFor="typeRoom">Loại phòng</label>
-                                    <select className={cx('typeRoom')} id="typeRoom" name="typeRoom">
-                                        <option value="">-- Chọn loại phòng --</option>
+                                    <select id="typeRoom">
+                                        <option value="volvo">Volvo</option>
                                         <option value="saab">Saab</option>
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
+                                        <option value="vw">VW</option>
+                                        <option value="audi" selected>
+                                            Audi
+                                        </option>
                                     </select>
                                 </div>
-                                <div className={cx('selection')}>
+                                <div className={cx('group', 'float3')}>
                                     <label htmlFor="acreageRoom">Diện tích</label>
-                                    <select className={cx('acreageRoom')} id="acreageRoom" name="acreageRoom">
-                                        <option value="">-- Diện tích phòng --</option>
+                                    <select id="acreageRoom">
+                                        <option value="volvo">Volvo</option>
                                         <option value="saab">Saab</option>
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
+                                        <option value="vw">VW</option>
+                                        <option value="audi" selected>
+                                            Audi
+                                        </option>
+                                    </select>
+                                </div>
+                                <div className={cx('group', 'float2')}>
+                                    <label htmlFor="bedRoom">Giường ngủ</label>
+                                    <select id="bedRoom">
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="vw">VW</option>
+                                        <option value="audi" selected>
+                                            Audi
+                                        </option>
                                     </select>
                                 </div>
                             </div>
-                            <div className={cx('left-select')}>
-                                <div className={cx('selection')}>
-                                    <label htmlFor="numberCustomer">Số lượng khách có thể ở</label>
-                                    <select className={cx('numberCustomer')} id="numberCustomer" name="numberCustomer">
-                                        <option value="">-- Số lượng tối đa --</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
-                                    </select>
+                            <div className={cx('number')}>
+                                <div className={cx('group', 'float1')}>
+                                    <label htmlFor="numberCustomer">số lượng khách có thể ở</label>
+                                    <input type="number" id="numberCustomer" />
                                 </div>
-                            </div>
-                            <div className={cx('left-group-form')}>
-                                <label htmlFor="descRoom">Mô tả</label>
-                                <textarea
-                                    className={cx('descRoom')}
-                                    id="descRoom"
-                                    cols="10"
-                                    rows="20"
-                                    name="descRoom"
-                                />
+                                <div className={cx('group', 'float2')}>
+                                    <label htmlFor="codeRoom">Mã phòng</label>
+                                    <input type="text" id="codeRoom" />
+                                </div>
                             </div>
                         </div>
                         <div className={cx('right')}>
-                            <div className={cx('group-thumbnail')}>
-                                <div className={cx('thumbnail')}>Thumbnail</div>
-                                <label htmlFor="thumbnailRoom" style={{ border: thumbnailVisible ? '' : 'none' }}>
-                                    <BsFillImageFill
-                                        className={cx('icon-image')}
-                                        style={{ display: thumbnailVisible ? '' : 'none' }}
-                                    ></BsFillImageFill>
-                                    <p>{imageLabel}</p>
-                                    {imageUrl && <img src={imageUrl} alt="Selected Image" />}
-                                </label>
-                                <input
-                                    id="thumbnailRoom"
-                                    name="thumbnailRoom"
-                                    type="file"
-                                    onChange={(e) => {
-                                        handleImageChange(e);
-                                    }}
-                                    style={{ display: 'none' }}
-                                />
+                            <div className={cx('thumbnail')}>
+                                <label htmlFor="thumbnailRoom">Thumbnail</label>
+                                <div
+                                    {...getRootProps()}
+                                    className={cx('image')}
+                                    style={{ border: files.length > 0 ? 'none' : '2px dashed #fff' }}
+                                >
+                                    <input {...getInputProps()} />
+                                    <AiFillFileImage
+                                        className={cx('drop-img')}
+                                        style={{ display: files.length > 0 ? 'none' : 'block' }}
+                                    ></AiFillFileImage>
+                                    <p style={{ display: files.length > 0 ? 'none' : 'block' }}>
+                                        Thêm hoặc thả ảnh vào đây
+                                    </p>
+                                    {files.map((file) => (
+                                        <img key={file.name} src={URL.createObjectURL(file)} alt={file.name} />
+                                    ))}
+                                </div>
                             </div>
-                            <div className={cx('group-library')}>
-                                <div className={cx('library')}>library</div>
-
-                                <label htmlFor="libraryRoom">
-                                    {images.length > 0 ? (
-                                        <div className={cx('image-grid')}>
-                                            {images.map((image) => (
-                                                <img
-                                                    key={image}
-                                                    src={image}
-                                                    alt="uploaded image"
-                                                    className={cx('image-item')}
-                                                />
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <div className={cx('upload-box')}>
-                                            <BsFillImageFill className={cx('icon-image')}></BsFillImageFill>
-                                            <p>Chọn tối đa 6 ảnh của bạn vào đây.</p>
-                                        </div>
-                                    )}
-                                </label>
-                                <input
-                                    type="file"
-                                    id="libraryRoom"
-                                    multiple
-                                    name="libraryRoom"
-                                    style={{ display: 'none' }}
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className={cx('noft')}>
-                                <p>
-                                    bạn cần thêm ít nhất 6 hình ảnh thư viện và một ảnh đại diện. Hãy chú ý đến chất
-                                    lượng của hình ảnh bạn thêm vào, tuân thủ các tiêu chuẩn về màu nền. Hình ảnh phải
-                                    có kích thước nhất định. Lưu ý rằng phòng khách sạn hiển thị tất cả các chi tiết
-                                </p>
-                            </div>
-                            <div className={cx('left-group-form')}>
-                                <label htmlFor="priceRoom">Giá phòng</label>
-                                <input type="text" className={cx('priceRoom')} id="priceRoom" name="priceRoom" />
-                            </div>
-                            <div className={cx('button')}>
-                                <button className={cx('btn-1')} type="submit" form="form1" value="Submit">
-                                    Submit
-                                </button>
-                                <button className={cx('btn-2')} type="submit" form="form1" value="Submit">
-                                    Reset Form
-                                </button>
-                            </div>
+                        </div>
+                    </div>
+                    <div className={cx('col')}>
+                        <div className={cx('check')}>
+                            <label htmlFor="amenitiesRoom">Tiện nghi</label>
+                        </div>
+                        <div className={cx('desc')}>
+                            <label htmlFor="descRoom">Mô tả chi tiết</label>
+                            <textarea id="descRoom" cols="10" rows="30" />
                         </div>
                     </div>
                 </form>

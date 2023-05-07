@@ -6,7 +6,7 @@ const roomSchema = new Schema(
     nameRoom: { type: String, required: true, trim: true },
     slugRoom: { type: String, required: true, trim: true },
     priceRoom: { type: Number, required: true, trim: true },
-    rateRoom: { type: Number, required: true, trim: true },
+    rateRoom: { type: Number, required: true, trim: true, default: 0 },
     quantityRoom: { type: Number, required: true, trim: true },
     numberCustomer: { type: Number, required: true, trim: true },
     bedRoom: { type: String, required: true, trim: true },

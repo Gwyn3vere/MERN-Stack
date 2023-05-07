@@ -60,7 +60,6 @@ function Sidebar() {
     return (
         <aside className={cx('wrapper')}>
             <div className={cx('container')}>
-                <hr />
                 {menuList.map((item) => {
                     return (
                         <div className={cx('sidebar')} key={item.id} onClick={() => handleItemClick(item.id)}>
