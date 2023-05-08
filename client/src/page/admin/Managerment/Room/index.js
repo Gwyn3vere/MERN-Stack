@@ -37,7 +37,7 @@ function Room() {
                     </div>
                 </div>
                 <div className={cx('control')}>
-                    <NavLink to="http://localhost:3000/create-room">
+                    <NavLink to={`http://localhost:3000/create-room`}>
                         <div className={cx('create')}>
                             <MdAddCircle></MdAddCircle>New Product
                         </div>
@@ -94,7 +94,7 @@ function Room() {
                                 <p> {room.codeRoom} </p>
                                 <p> {room.typeRoom} </p>
                                 <p> {room.priceRoom} </p>
-                                <NavLink to="http://localhost:3000/room">
+                                <NavLink to={`http://localhost:3000/update-room/${room._id}`}>
                                     <div className={cx('update')}>Sửa</div>
                                 </NavLink>
                             </div>

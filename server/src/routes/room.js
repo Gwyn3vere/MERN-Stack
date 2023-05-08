@@ -7,10 +7,16 @@ const upload = require("../middlewares/multer");
 // http://localhost:5000/api/room
 
 router.get("/", roomController.readRoom);
+router.get("/:_id", roomController.getRoomById);
 router.post(
   "/create",
   upload.single("thumbnailRoom"),
   roomController.createRoom
+);
+router.put(
+  "/update/:_id",
+  upload.single("thumbnailRoom"),
+  roomController.updateRoom
 );
 
 module.exports = router;

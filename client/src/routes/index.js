@@ -1,9 +1,12 @@
+import roomApi from '~/api/room';
+
 // OrtherLayout
 import { OrtherLayout, AdminLayout } from '~/components/Layout';
 
 // AdminLayout
 import Overview from '~/page/admin/Overview';
 import Createroom from '~/page/admin/Managerment/Room/Createroom';
+import Updateroom from '~/page/admin/Managerment/Room/Updateroom';
 import Room from '~/page/admin/Managerment/Room';
 
 // CustomerLayout
@@ -27,6 +30,7 @@ const publicRoutes = [
 const privateRoutes = [
     { path: '/overview', component: Overview, layout: AdminLayout, role: ['admin'] },
     { path: '/create-room', component: Createroom, layout: AdminLayout, role: ['admin'] },
+    { path: '/update-room/:id', component: Updateroom, layout: AdminLayout, role: ['admin'] },
     { path: '/room', component: Room, layout: AdminLayout, role: ['admin'] },
     { path: '/dat-phong', component: Order, role: ['customer', 'admin'] },
 ];

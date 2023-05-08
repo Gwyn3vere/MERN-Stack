@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import classNames from 'classnames/bind';
-import styles from './Createroom.module.scss';
+import styles from './Updateroom.module.scss';
 import image from '~/assets/images';
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
@@ -32,7 +32,7 @@ const amenities = [
     { id: 18, name: 'Hồ bơi riêng' },
 ];
 
-function Createroom() {
+function UpdateRoom() {
     const navigate = useNavigate();
     const { getRootProps, getInputProps } = useDropzone({
         accept: '',
@@ -354,4 +354,4 @@ function Createroom() {
     );
 }
 
-export default Createroom;
+export default UpdateRoom;
