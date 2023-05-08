@@ -3,10 +3,25 @@ import styles from './Room.module.scss';
 import image from '~/assets/images';
 import { MdAddCircle, MdDelete } from 'react-icons/md';
 import { FaSearch } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import roomApi from '~/api/room';
+import { NavLink } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function Room() {
+    const [rooms, setRooms] = useState([]);
+    useEffect(() => {
+        const fetchRooms = async () => {
+            try {
+                const data = await roomApi.getRoomList();
+                setRooms(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchRooms();
+    }, []);
     return (
         <main className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -22,11 +37,11 @@ function Room() {
                     </div>
                 </div>
                 <div className={cx('control')}>
-                    <a href={cx('http://localhost:3000/create-room')}>
+                    <NavLink to="http://localhost:3000/create-room">
                         <div className={cx('create')}>
                             <MdAddCircle></MdAddCircle>New Product
                         </div>
-                    </a>
+                    </NavLink>
                     <div className={cx('option')}>
                         <div className={cx('search')}>
                             <div className={cx('search-btn')}>
@@ -50,39 +65,42 @@ function Room() {
                     </div>
                 </div>
                 <div className={cx('list')}>
-                    <div className={cx('nameTag')}>
-                        <p className={cx('two')}>#</p>
-                        <div className={cx('two')}>
-                            <input type="checkbox" />
+                    <div className={cx('menu')}>
+                        <div className={cx('name')}>
+                            <p>STT</p>
+                            <p>Check</p>
+                            <p>Tên phòng</p>
+                            <p>Thumbnail</p>
+                            <p>Số lượng</p>
+                            <p>Mã phòng</p>
+                            <p>Loại phòng</p>
+                            <p>Giá phòng</p>
+                            <p>Tuỳ chọn</p>
                         </div>
-                        <p className={cx('thirty')}>Name Room</p>
-                        <p className={cx('ten')}>Type</p>
-                        <p className={cx('ten')}>Price</p>
-                        <p className={cx('thirty')}>NumberCustomer</p>
-                        <p className={cx('ten')}>Acreage</p>
-                        <p className={cx('ten')}>Action</p>
                     </div>
-                </div>
-                {/* {Fragment.map((room, index) => {
-                    return (
-                        <div className={cx('info')} key={index}>
-                            <div className={cx('room')}>
-                                <p className={cx('two')}>#</p>
-                                <div className={cx('two')}>
+                    <div className={cx('info')}>
+                        {rooms.map((room) => (
+                            <div className={cx('card')} key={room._id}>
+                                <p>#</p>
+                                <div>
                                     <input type="checkbox" />
                                 </div>
-                                <p className={cx('thirty')}>{room.nameRoom}</p>
-                                <p className={cx('ten')}>{room.typeRoom}</p>
-                                <p className={cx('ten')}>{room.priceRoom}</p>
-                                <p className={cx('thirty')}>{room.numberCustomer}</p>
-                                <p className={cx('ten')}>{room.acreageRoom}</p>
-                                <a href="http://localhost:3000/room" className={cx('ten')}>
-                                    <div>Edit</div>
-                                </a>
+                                <p>{room.nameRoom}</p>
+                                <img
+                                    src={`http://localhost:3000/uploads/${room.thumbnailRoom.public_id}`}
+                                    alt={room.nameRoom}
+                                />
+                                <p> {room.quantityRoom} </p>
+                                <p> {room.codeRoom} </p>
+                                <p> {room.typeRoom} </p>
+                                <p> {room.priceRoom} </p>
+                                <NavLink to="http://localhost:3000/room">
+                                    <div className={cx('update')}>Sửa</div>
+                                </NavLink>
                             </div>
-                        </div>
-                    );
-                })} */}
+                        ))}
+                    </div>
+                </div>
             </div>
         </main>
     );

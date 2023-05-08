@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 import { BsFillHouseGearFill, BsFillPersonLinesFill, BsFillBarChartFill } from 'react-icons/bs';
 import { MdAccountCircle, MdSpaceDashboard } from 'react-icons/md';
-import { ImFoursquare } from 'react-icons/im';
+// import { ImFoursquare } from 'react-icons/im';
 import { RiArrowLeftRightFill } from 'react-icons/ri';
 import useActive from './useActive';
 import { NavLink } from 'react-router-dom';

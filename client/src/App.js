@@ -8,7 +8,6 @@ function App() {
     const isLoggedIn = () => {
         return localStorage.getItem('token');
     };
-    console.log(isLoggedIn());
 
     // Kiểm tra xem người dùng có quyền truy cập vào route này hay không
     const hasAccess = (route) => {
