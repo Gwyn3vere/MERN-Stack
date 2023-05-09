@@ -11,19 +11,19 @@ import useActive from './useActive';
 import authApi from '~/api/auth';
 
 const cx = classNames.bind(styles);
+const URL = process.env.REACT_APP_ANDRESS_IP;
 
 const menuList = [
-    { id: 1, title: 'Trang chủ', url: 'http://localhost:3000/' },
-    { id: 2, title: 'Giới thiệu', url: 'http://localhost:3000/gioi-thieu' },
-    { id: 3, title: 'Phòng', url: 'http://localhost:3000/phong' },
-    { id: 4, title: 'Dịch vụ', url: 'http://localhost:3000/dich-vu' },
-    { id: 5, title: 'Liên hệ', url: 'http://localhost:3000/lien-he' },
+    { id: 1, title: 'Trang chủ', url: `${URL}/` },
+    { id: 2, title: 'Giới thiệu', url: `${URL}/gioi-thieu` },
+    { id: 3, title: 'Phòng', url: `${URL}/phong` },
+    { id: 4, title: 'Dịch vụ', url: `${URL}/dich-vu` },
+    { id: 5, title: 'Liên hệ', url: `${URL}/lien-he` },
 ];
 
 function Header() {
     const { activeId, handleItemClick } = useActive();
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
 
     const handleLogout = () => {
         authApi.logout();

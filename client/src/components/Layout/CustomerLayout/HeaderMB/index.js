@@ -6,13 +6,14 @@ import useActive from './useActive';
 import { NavLink } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
+const URL = process.env.REACT_APP_ANDRESS_IP;
 
 const menuList = [
-    { id: 1, title: 'Home', icon: <AiOutlineHome />, url: 'http://localhost:3000/' },
-    { id: 2, title: 'Search', icon: <AiOutlineSearch />, url: 'http://localhost:3000/phong' },
-    { id: 3, title: 'Love', icon: <AiOutlineHeart />, url: 'http://localhost:3000/phong' },
-    { id: 4, title: 'Notification', icon: <AiOutlineBell />, url: 'http://localhost:3000/' },
-    { id: 5, title: 'Login', icon: <RxAvatar />, url: 'http://localhost:3000/dang-nhap' },
+    { id: 1, title: 'Home', icon: <AiOutlineHome />, url: `${URL}/` },
+    { id: 2, title: 'Search', icon: <AiOutlineSearch />, url: `${URL}/phong` },
+    { id: 3, title: 'Love', icon: <AiOutlineHeart />, url: `${URL}/phong` },
+    { id: 4, title: 'Notification', icon: <AiOutlineBell />, url: `${URL}/phong` },
+    { id: 5, title: 'Login', icon: <RxAvatar />, url: `${URL}/dang-nhap` },
 ];
 
 function HeaderMB() {

@@ -1,5 +1,3 @@
-import roomApi from '~/api/room';
-
 // OrtherLayout
 import { OrtherLayout, AdminLayout } from '~/components/Layout';
 

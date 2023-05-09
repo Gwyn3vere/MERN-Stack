@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
+const URL = process.env.REACT_APP_ANDRESS_IP;
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -82,7 +83,7 @@ function Login() {
                                 <input type="checkbox" id="checkbox" />
                                 <label htmlFor="checkbox">Nhớ mật khẩu</label>
                             </div>
-                            <a href="http://localhost:3000/dang-nhap">
+                            <a href={`${URL}/dang-nhap`}>
                                 <p>Quên mật khẩu?</p>
                             </a>
                         </div>
@@ -95,7 +96,7 @@ function Login() {
                             <div className={cx('border')}></div>
                         </div>
                         <div className={cx('orther')}>
-                            <a href="http://localhost:3000/dang-nhap">
+                            <a href={`${URL}/dang-nhap`}>
                                 <div className={cx('method')}>
                                     <i>
                                         <FcGoogle></FcGoogle>
@@ -103,7 +104,7 @@ function Login() {
                                     <p>Tiếp tục với Google</p>
                                 </div>
                             </a>
-                            <a href="http://localhost:3000/dang-nhap">
+                            <a href={`${URL}/dang-nhap`}>
                                 <div className={cx('method')}>
                                     <i>
                                         <BsFacebook></BsFacebook>
@@ -111,7 +112,7 @@ function Login() {
                                     <p>Tiếp tục với Facebook</p>
                                 </div>
                             </a>
-                            <a href="http://localhost:3000/dang-nhap">
+                            <a href={`${URL}/dang-nhap`}>
                                 <div className={cx('method')}>
                                     <i>
                                         <BsApple></BsApple>
@@ -129,7 +130,7 @@ function Login() {
                             <div className={cx('login')}>
                                 <p>Đăng nhập</p>
                             </div>
-                            <NavLink to={'http://localhost:3000/dang-ky'}>
+                            <NavLink to={`${URL}/dang-ky`}>
                                 <div className={cx('register')}>
                                     <p>Đăng ký</p>
                                 </div>

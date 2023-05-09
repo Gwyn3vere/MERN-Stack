@@ -11,6 +11,7 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 
 const cx = classNames.bind(styles);
+const URL = process.env.REACT_APP_ANDRESS_IP;
 
 function Register() {
     const [email, setEmail] = useState('');
@@ -81,7 +82,7 @@ function Register() {
                             </div>
                         </div>
                         <div className={cx('forgot')}>
-                            <a href="http://localhost:3000/dang-nhap">
+                            <a href={`${URL}/dang-nhap`}>
                                 <p>Mật khẩu không được dưới 6 kí tự!</p>
                             </a>
                         </div>
@@ -94,7 +95,7 @@ function Register() {
                             <div className={cx('border')}></div>
                         </div>
                         <div className={cx('orther')}>
-                            <a href="http://localhost:3000/dang-nhap">
+                            <a href={`${URL}/dang-nhap`}>
                                 <div className={cx('method')}>
                                     <i>
                                         <FcGoogle></FcGoogle>
@@ -102,7 +103,7 @@ function Register() {
                                     <p>Đăng ký bằng Google</p>
                                 </div>
                             </a>
-                            <a href="http://localhost:3000/dang-nhap">
+                            <a href={`${URL}/dang-nhap`}>
                                 <div className={cx('method')}>
                                     <i>
                                         <BsFacebook></BsFacebook>
@@ -110,7 +111,7 @@ function Register() {
                                     <p>Đăng ký bằng Facebook</p>
                                 </div>
                             </a>
-                            <a href="http://localhost:3000/dang-nhap">
+                            <a href={`${URL}/dang-nhap`}>
                                 <div className={cx('method')}>
                                     <i>
                                         <BsApple></BsApple>
@@ -125,7 +126,7 @@ function Register() {
                             <div className={cx('border')}></div>
                         </div>
                         <div className={cx('had')}>
-                            <NavLink to={'http://localhost:3000/dang-nhap'}>
+                            <NavLink to={`${URL}/dang-nhap`}>
                                 <div className={cx('register')}>
                                     <p>Đăng nhập</p>
                                 </div>
