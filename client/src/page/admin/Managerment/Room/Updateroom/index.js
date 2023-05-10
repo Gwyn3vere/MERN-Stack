@@ -35,6 +35,7 @@ const amenities = [
 function UpdateRoom() {
     const navigate = useNavigate();
     const { _id } = useParams();
+
     const { getRootProps, getInputProps } = useDropzone({
         accept: '',
         onDrop: (acceptedFiles) => {
@@ -82,6 +83,7 @@ function UpdateRoom() {
                 // xử lý lỗi khi lấy dữ liệu từ server
             });
     }, [_id]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormValues((prevValues) => ({
@@ -89,14 +91,18 @@ function UpdateRoom() {
             [name]: value,
         }));
     };
-    const handleAmenitiesChange = (amenity) => {
-        setFormValues((prevValues) => ({
-            ...prevValues,
-            amenitiesRoom: prevValues.amenitiesRoom.includes(amenity.id)
-                ? prevValues.amenitiesRoom.filter((a) => a !== amenity.id)
-                : [...prevValues.amenitiesRoom, amenity.id],
-        }));
+    const handleAmenitiesChange = (amenityName) => {
+        setFormValues((prevValues) => {
+            let amenitiesRoom = [...prevValues.amenitiesRoom];
+            if (amenitiesRoom.includes(amenityName)) {
+                amenitiesRoom = amenitiesRoom.filter((name) => name !== amenityName);
+            } else {
+                amenitiesRoom.push(amenityName);
+            }
+            return { ...prevValues, amenitiesRoom };
+        });
     };
+
     const handleThumbnailChange = (e) => {
         setFormValues((prevValues) => ({
             ...prevValues,
@@ -123,6 +129,10 @@ function UpdateRoom() {
         }
 
         const errors = {};
+
+        if (formValues.thumbnailRoom === null || typeof formValues.thumbnailRoom !== 'object') {
+            errors.thumbnailRoom = 'Vui lòng chọn ảnh cho phòng';
+        }
 
         for (let [key, value] of formData.entries()) {
             if (value === null || value === '') {
@@ -156,7 +166,7 @@ function UpdateRoom() {
         }
 
         roomApi
-            .createRoom(_id, formData)
+            .updateRoom(_id, formData)
             .then((response) => {
                 toast.success('Tạo phòng thành công');
                 setTimeout(() => {
@@ -227,7 +237,7 @@ function UpdateRoom() {
                                         type="number"
                                         id="priceRoom"
                                         name="priceRoom"
-                                        value={formValues.quantipriceRoomyRoom}
+                                        value={formValues.priceRoom}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -338,19 +348,34 @@ function UpdateRoom() {
                             <label htmlFor="amenitiesRoom">Tiện nghi</label>
                             <div className={cx('box')}>
                                 {amenities.map((amenity) => {
-                                    const isChecked = formValues.amenitiesRoom.includes(amenity.id);
+                                    const isChecked = formValues.amenitiesRoom.includes(amenity.name);
                                     return (
                                         <div className={cx('checkbox')} key={amenity.id}>
                                             <input
                                                 type="checkbox"
                                                 name="amenitiesRoom"
+                                                value={amenity.name}
                                                 checked={isChecked}
-                                                onChange={() => handleAmenitiesChange(amenity.id)}
+                                                onChange={() => handleAmenitiesChange(amenity.name)}
                                             />
-                                            <p>{amenity.name}</p>
+                                            <p> {amenity.name} </p>
                                         </div>
                                     );
                                 })}
+                                {/* {formValues.amenitiesRoom.map((amenity) => {
+                                    return (
+                                        <div className={cx('checkbox')} key={amenity}>
+                                            <input
+                                                type="checkbox"
+                                                name="amenitiesRoom"
+                                                value={amenity}
+                                                checked={formValues.amenitiesRoom.includes(amenity)}
+                                                onChange={() => handleAmenitiesChange(amenity)}
+                                            />
+                                            <p> {amenity} </p>
+                                        </div>
+                                    );
+                                })} */}
                             </div>
                         </div>
                         <div className={cx('desc')}>
