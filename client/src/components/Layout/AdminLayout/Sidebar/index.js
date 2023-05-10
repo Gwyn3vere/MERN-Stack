@@ -9,43 +9,44 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 
 const cx = classNames.bind(styles);
+const URL = process.env.REACT_APP_ANDRESS_IP;
 
 const menuList = [
     {
         id: 1,
         name: 'Tổng quan',
         icon: <MdSpaceDashboard></MdSpaceDashboard>,
-        url: 'http://localhost:3000/overview',
+        url: `${URL}/overview`,
     },
     {
         id: 2,
         name: 'Quản lí dịch vụ',
         icon: <MdSpaceDashboard></MdSpaceDashboard>,
-        url: 'http://localhost:3000/overview',
+        url: `${URL}/overview`,
     },
     {
         id: 3,
         name: 'Quản lí phòng',
         icon: <BsFillHouseGearFill></BsFillHouseGearFill>,
-        url: 'http://localhost:3000/room',
+        url: `${URL}/room`,
     },
     {
         id: 4,
         name: 'Quản lí đơn đặt phòng',
         icon: <BsFillPersonLinesFill></BsFillPersonLinesFill>,
-        url: 'http://localhost:3000/overview',
+        url: `${URL}/overview`,
     },
     {
         id: 5,
         name: 'Quản lí tài khoản',
         icon: <MdAccountCircle></MdAccountCircle>,
-        url: 'http://localhost:3000/create-room',
+        url: `${URL}/overview`,
     },
     {
         id: 6,
         name: 'Thống kê doanh thu',
         icon: <BsFillBarChartFill></BsFillBarChartFill>,
-        url: 'http://localhost:3000/create-room',
+        url: `${URL}/overview`,
     },
 ];
 

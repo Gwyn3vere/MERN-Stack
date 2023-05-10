@@ -9,7 +9,6 @@ import { FaHotel, FaServicestack } from 'react-icons/fa';
 import { BsFillCalendarEventFill, BsFillCalendarFill, BsStarFill } from 'react-icons/bs';
 import { MdLocationOn } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
-import HeaderMB from '~/components/Layout/CustomerLayout/HeaderMB';
 
 const cx = classNames.bind(styles);
 
@@ -174,7 +173,6 @@ function Home() {
     };
     return (
         <main className={cx('wrapper')}>
-            <HeaderMB />
             <div className={cx('container')}>
                 <div className={cx('first')}>
                     <div className={cx('welcome')}>

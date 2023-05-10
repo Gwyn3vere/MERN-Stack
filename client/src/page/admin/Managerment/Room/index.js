@@ -8,6 +8,7 @@ import roomApi from '~/api/room';
 import { NavLink } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
+const URL = process.env.REACT_APP_ANDRESS_IP;
 
 function Room() {
     const [rooms, setRooms] = useState([]);
@@ -37,7 +38,7 @@ function Room() {
                     </div>
                 </div>
                 <div className={cx('control')}>
-                    <NavLink to={`http://localhost:3000/create-room`}>
+                    <NavLink to={`${URL}/create-room`}>
                         <div className={cx('create')}>
                             <MdAddCircle></MdAddCircle>New Product
                         </div>
@@ -86,15 +87,12 @@ function Room() {
                                     <input type="checkbox" />
                                 </div>
                                 <p>{room.nameRoom}</p>
-                                <img
-                                    src={`http://localhost:3000/uploads/${room.thumbnailRoom.public_id}`}
-                                    alt={room.nameRoom}
-                                />
+                                <img src={`${URL}/uploads/${room.thumbnailRoom.public_id}`} alt={room.nameRoom} />
                                 <p> {room.quantityRoom} </p>
                                 <p> {room.codeRoom} </p>
                                 <p> {room.typeRoom} </p>
                                 <p> {room.priceRoom} </p>
-                                <NavLink to={`http://localhost:3000/update-room/${room._id}`}>
+                                <NavLink to={`${URL}/update-room/${room._id}`}>
                                     <div className={cx('update')}>Sửa</div>
                                 </NavLink>
                             </div>

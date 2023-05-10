@@ -12,6 +12,7 @@ import authApi from '~/api/auth';
 
 const cx = classNames.bind(styles);
 const URL = process.env.REACT_APP_ANDRESS_IP;
+console.log(URL);
 
 const menuList = [
     { id: 1, title: 'Trang chủ', url: `${URL}/` },
@@ -73,13 +74,13 @@ function Header() {
                         </div>
                         {user ? (
                             <div className={cx('login-btn')}>
-                                <a href="http://localhost:3000/" onClick={handleLogout}>
+                                <a href={`${URL}/`} onClick={handleLogout}>
                                     <BiLogOutCircle></BiLogOutCircle>
                                 </a>
                             </div>
                         ) : (
                             <div className={cx('login-btn')}>
-                                <a href="http://localhost:3000/dang-nhap">
+                                <a href={`${URL}/dang-nhap`}>
                                     <BiLogInCircle></BiLogInCircle>
                                 </a>
                             </div>

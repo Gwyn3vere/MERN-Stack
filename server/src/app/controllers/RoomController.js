@@ -102,10 +102,10 @@ class RoomController {
     }
   }
 
-  async getRoomById(req, res) {
+  async getRoomBySlug(req, res) {
     try {
-      const { _id } = req.params;
-      const room = await Room.findById(_id);
+      const { slugRoom } = req.params;
+      const room = await Room.findOne({ slugRoom });
       if (!room) {
         return res.status(404).json({ message: "Room not found" });
       }
@@ -113,6 +113,19 @@ class RoomController {
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Internal server error" });
+    }
+  }
+
+  async getRoomById(req, res) {
+    try {
+      const roomId = req.params._id;
+      const room = await Room.findById(roomId).populate("amenitiesRoom");
+      if (!room) {
+        return res.status(404).json({ message: "Không tìm thấy phòng" });
+      }
+      res.status(200).json(room);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
   }
 }

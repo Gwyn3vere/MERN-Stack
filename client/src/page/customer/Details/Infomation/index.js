@@ -12,30 +12,6 @@ import { BsFillCalendarFill, BsStarFill } from 'react-icons/bs';
 
 const cx = classNames.bind(styles);
 
-const infoList = [
-    { id: 1, title: 'Mã phòng', content: 'SGFT090102' },
-    { id: 2, title: 'Diện tích', content: '360m2' },
-    { id: 3, title: 'Địa chỉ khách sạn', content: '97 Tran Anh Tong, Hoa Minh, Lien Chieu, Da Nang' },
-];
-
-const include = [
-    { id: 1, icons: <TiTick />, name: 'TV' },
-    { id: 2, icons: <TiTick />, name: 'Vòi tắm' },
-    { id: 3, icons: <TiTick />, name: 'Tủ' },
-    { id: 4, icons: <TiTick />, name: 'Đèn ngủ' },
-    { id: 5, icons: <TiTick />, name: 'Bàn làm việc' },
-    { id: 6, icons: <TiTick />, name: 'Giường ngủ' },
-];
-
-const uninclude = [
-    { id: 1, icons: <TiTimes />, name: 'TV' },
-    { id: 2, icons: <TiTimes />, name: 'Vòi tắm' },
-    { id: 3, icons: <TiTimes />, name: 'Tủ' },
-    { id: 4, icons: <TiTimes />, name: 'Đèn ngủ' },
-    { id: 5, icons: <TiTimes />, name: 'Bàn làm việc' },
-    { id: 6, icons: <TiTimes />, name: 'Giường ngủ' },
-];
-
 const rooms = [
     {
         id: 1,
@@ -89,7 +65,7 @@ const settings = {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     initialSlide: 0,
     arrows: false,
     autoplay: true,
@@ -122,14 +98,44 @@ const settings = {
     ],
 };
 
-function Infomation() {
+const amenities = [
+    { id: 1, name: 'Giường ngủ' },
+    { id: 2, name: 'Tivi' },
+    { id: 3, name: 'Điều hoà và quạt' },
+    { id: 4, name: 'Két an toàn' },
+    { id: 5, name: 'Tủ lạnh mini' },
+    { id: 6, name: 'Phòng tắm' },
+    { id: 7, name: 'Đồ dùng cá nhân' },
+    { id: 8, name: 'Thiết bị điện' },
+    { id: 9, name: 'Bàn làm việc' },
+    { id: 10, name: 'Dịch vụ phòng' },
+    { id: 11, name: 'Khu vực ghế ngồi' },
+    { id: 12, name: 'Máy pha cà phê' },
+    { id: 13, name: 'Máy chiếu' },
+    { id: 14, name: 'Wifi/Internet' },
+    { id: 15, name: 'Máy giặt và bếp nhỏ' },
+    { id: 16, name: 'Khu vực tiếp khách' },
+    { id: 17, name: 'Minibar' },
+    { id: 18, name: 'Hồ bơi riêng' },
+];
+
+function Infomation(props) {
+    const { roomDetail } = props;
+    const infoList = [
+        { id: 1, title: 'Mã phòng', content: `${roomDetail && roomDetail.room.codeRoom}` },
+        { id: 2, title: 'Diện tích', content: `${roomDetail && roomDetail.room.acreageRoom}` },
+        { id: 3, title: 'Địa chỉ khách sạn', content: '97 Tran Anh Tong, Hoa Minh, Lien Chieu, Da Nang' },
+    ];
+    const amenitiesNotInRoom = amenities.filter(
+        (amenity) => roomDetail && !roomDetail.room.amenitiesRoom.includes(amenity.name),
+    );
     return (
         <main className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('first')}>
-                    <p className={cx('name')}>Room Luxury v2</p>
+                    <p className={cx('name')}>{roomDetail && roomDetail.room.nameRoom}</p>
                     <div className={cx('price')}>
-                        <span>1.000.000 VND</span>
+                        <span>{roomDetail && roomDetail.room.priceRoom} VND</span>
                         <p>/ ngày</p>
                     </div>
                     <div className={cx('rating')}>
@@ -140,18 +146,10 @@ function Infomation() {
                             <IoIosStar></IoIosStar>
                             <IoIosStarHalf></IoIosStarHalf>
                         </span>
-                        <span className={cx('review')}> (20 Review) </span>
+                        <span className={cx('review')}> ({roomDetail && roomDetail.room.rateRoom} Review) </span>
                     </div>
                     <div className={cx('desc')}>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                            galley of type and scrambled it to make a type specimen book. It has survived not only five
-                            centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-                            passages, and more recently with desktop publishing software like Aldus PageMaker including
-                            versions of Lorem Ipsum.
-                        </p>
+                        <p>{roomDetail && roomDetail.room.descRoom}</p>
                     </div>
                 </div>
                 <div className={cx('second')}>
@@ -160,13 +158,13 @@ function Infomation() {
                             <span>
                                 <MdPeople></MdPeople>
                             </span>
-                            <p>+2</p>
+                            <p>+{roomDetail && roomDetail.room.numberCustomer}</p>
                         </div>
                         <div className={cx('type')}>
                             <span>
                                 <FaBed></FaBed>
                             </span>
-                            <p>Single</p>
+                            <p>{roomDetail && roomDetail.room.bedRoom}</p>
                         </div>
                     </div>
                     <div className={cx('info-group')}>
@@ -183,24 +181,29 @@ function Infomation() {
                         <div className={cx('included')}>
                             <span> Bao gồm </span>
                             <div className={cx('p')}>
-                                {include.map((inc) => {
-                                    return (
-                                        <div className={cx('include')} key={inc.id}>
-                                            <span> {inc.icons} </span>
-                                            <p>{inc.name}</p>
-                                        </div>
-                                    );
-                                })}
+                                {roomDetail &&
+                                    roomDetail.room.amenitiesRoom.map((amenity) => {
+                                        return (
+                                            <div className={cx('include')} key={amenity}>
+                                                <span>
+                                                    <TiTick />
+                                                </span>
+                                                <p>{amenity}</p>
+                                            </div>
+                                        );
+                                    })}
                             </div>
                         </div>
                         <div className={cx('included')}>
                             <span> Không bao gồm </span>
                             <div className={cx('p')}>
-                                {uninclude.map((inc) => {
+                                {amenitiesNotInRoom.map((amenity) => {
                                     return (
-                                        <div className={cx('include')} key={inc.id}>
-                                            <span> {inc.icons} </span>
-                                            <p>{inc.name}</p>
+                                        <div className={cx('include')} key={amenity.id}>
+                                            <span>
+                                                <TiTimes />
+                                            </span>
+                                            <p>{amenity.name}</p>
                                         </div>
                                     );
                                 })}

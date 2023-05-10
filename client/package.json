@@ -14,10 +14,10 @@
         "web-vitals": "^2.1.4"
     },
     "scripts": {
-        "start": "react-app-rewired start --host 192.168.1.5",
-        "build": "react-app-rewired build --host 192.168.1.5",
-        "test": "react-app-rewired test --host 192.168.1.5",
-        "eject": "react-app-rewired eject --host 192.168.1.5"
+        "start": "react-app-rewired start --host 192.168.1.2",
+        "build": "react-app-rewired build --host 192.168.1.2",
+        "test": "react-app-rewired test --host 192.168.1.2",
+        "eject": "react-app-rewired eject --host 192.168.1.2"
     },
     "eslintConfig": {
         "extends": [

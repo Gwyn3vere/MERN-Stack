@@ -1,18 +1,36 @@
 import classNames from 'classnames/bind';
 import styles from './Details.module.scss';
-import image from '~/assets/images';
 import useTab from './useTab';
-import { MdPolicy } from 'react-icons/md';
-import { AiFillInfoCircle, AiFillCamera, AiFillWechat } from 'react-icons/ai';
-import { useState } from 'react';
 import Infomation from './Infomation';
 import Policy from './Policy';
 import Gallery from './Gallery';
 import Rating from './Rating';
+import { MdPolicy } from 'react-icons/md';
+import { AiFillInfoCircle, AiFillCamera, AiFillWechat } from 'react-icons/ai';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import roomApi from '~/api/room';
 
 const cx = classNames.bind(styles);
+const URL = process.env.REACT_APP_ANDRESS_IP;
 
 function Details() {
+    const { slugRoom } = useParams();
+    const [roomDetail, setRoomDetail] = useState(null);
+
+    useEffect(() => {
+        const fetchRoom = async () => {
+            try {
+                const data = await roomApi.getRoomBySlug(slugRoom);
+                setRoomDetail(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchRoom();
+    }, [slugRoom]);
+
     // Tạo active cho tabList
     const tabList = [
         { id: 1, icons: <AiFillInfoCircle />, name: 'Thông tin' },
@@ -24,14 +42,12 @@ function Details() {
     const handleClickTab = (tabIndex) => {
         onChangeTab(tabIndex);
     };
-
     // Render component
     const [currentTab, setCurrentTab] = useState(1);
-
     const renderTabConent = () => {
         switch (currentTab) {
             case 1:
-                return <Infomation />;
+                return <Infomation roomDetail={roomDetail} />;
             case 2:
                 return <Policy />;
             case 3:
@@ -42,7 +58,6 @@ function Details() {
                 return null;
         }
     };
-
     const types = [
         { id: 1, name: 'VIP' },
         { id: 2, name: 'Standand' },
@@ -58,8 +73,7 @@ function Details() {
         <main className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('banner')}>
-                    <img src={image.bgChuaLinhUng} alt="" />
-                    <p>Thông tin chi tiết</p>
+                    <img src={`${URL}/uploads/${roomDetail && roomDetail.room.thumbnailRoom.public_id}`} alt="" />
                 </div>
                 <div className={cx('room')}>
                     <div className={cx('table')}>

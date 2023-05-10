@@ -5,11 +5,28 @@ import useTab from './useTab';
 import useSort from './useSort';
 import { FaThList, FaSortAmountDownAlt, FaSortAmountDown, FaSortAlphaDown } from 'react-icons/fa';
 import { BsFillCalendarFill, BsStarFill } from 'react-icons/bs';
-import { useState } from 'react';
+import { FaBed } from 'react-icons/fa';
+import { MdPeople } from 'react-icons/md';
+import roomApi from '~/api/room';
+import { useState, useEffect } from 'react';
 
 const cx = classNames.bind(styles);
+const URL = process.env.REACT_APP_ANDRESS_IP;
 
 function Rooms() {
+    const [roomsList, setRoomsList] = useState([]);
+    useEffect(() => {
+        const fetchRooms = async () => {
+            try {
+                const data = await roomApi.getRoomList();
+                setRoomsList(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchRooms();
+    }, []);
+
     // Tạo active cho tabList
     const tabList = [
         { id: 1, icons: <FaThList />, name: 'Danh sách' },
@@ -23,53 +40,6 @@ function Rooms() {
     };
 
     // Tạo SortBy
-    const rooms = [
-        {
-            id: 1,
-            name: 'Room Name A',
-            rating: 4,
-            type: 'VIP',
-            thumnbail: image.bgChuaLinhUng,
-            acreage: '2 người lớn, 1 trẻ em',
-            price: 5000000,
-        },
-        {
-            id: 2,
-            name: 'Room Name C',
-            rating: 5,
-            type: 'VIP',
-            thumnbail: image.bgChuaLinhUng,
-            acreage: '2 người lớn, 1 trẻ em',
-            price: 7000000,
-        },
-        {
-            id: 3,
-            name: 'Room Name E',
-            rating: 5,
-            type: 'VIP',
-            thumnbail: image.bgChuaLinhUng,
-            acreage: '2 người lớn, 1 trẻ em',
-            price: 1000000,
-        },
-        {
-            id: 4,
-            name: 'Room Name B',
-            rating: 5,
-            type: 'VIP',
-            thumnbail: image.bgChuaLinhUng,
-            acreage: '2 người lớn, 1 trẻ em',
-            price: 1000000,
-        },
-        {
-            id: 5,
-            name: 'Room Name D',
-            rating: 5,
-            type: 'VIP',
-            thumnbail: image.bgChuaLinhUng,
-            acreage: '2 người lớn, 1 trẻ em',
-            price: 1000000,
-        },
-    ];
 
     const types = [
         { id: 1, name: 'VIP' },
@@ -83,7 +53,7 @@ function Rooms() {
     ];
 
     const [activeTabId, setActiveTabId] = useState(1);
-    const sortedRooms = useSort(rooms, activeTabId);
+    const sortedRooms = useSort(roomsList, activeTabId);
 
     const handleTabClick = (tabId) => {
         setActiveTabId(tabId);
@@ -116,34 +86,54 @@ function Rooms() {
                         <div className={cx('left')}>
                             {sortedRooms.map((item) => {
                                 return (
-                                    <div className={cx('card')} key={item.id}>
+                                    <div className={cx('card')} key={item._id}>
                                         <div className={cx('thumbnail')}>
-                                            <a href="http://localhost:3000/chi-tiet">
+                                            <a href={`${URL}/chi-tiet/${item.slugRoom}`}>
                                                 <figure>
-                                                    <img src={item.thumnbail} alt="" />
+                                                    <img
+                                                        src={`${URL}/uploads/${item.thumbnailRoom.public_id}`}
+                                                        alt=""
+                                                    />
                                                 </figure>
                                             </a>
                                             <div className={cx('type')}>
                                                 <div className={cx('item')}>
-                                                    <i>
-                                                        <BsFillCalendarFill></BsFillCalendarFill>
-                                                    </i>
-                                                    <p> {item.type} </p>
+                                                    <div className={cx('category')}>
+                                                        <i>
+                                                            <BsFillCalendarFill></BsFillCalendarFill>
+                                                        </i>
+                                                        <p> {item.typeRoom} </p>
+                                                    </div>
+                                                    <div className={cx('category')}>
+                                                        <i>
+                                                            <MdPeople></MdPeople>
+                                                        </i>
+                                                        <p> {item.numberCustomer} </p>
+                                                    </div>
+                                                    <div className={cx('category')}>
+                                                        <i>
+                                                            <FaBed></FaBed>
+                                                        </i>
+                                                        <p> {item.bedRoom} </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className={cx('info')}>
-                                            <a href="http://localhost:3000/chi-tiet" className={cx('hover')}>
-                                                <p className={cx('name')}>{item.name}</p>
+                                            <a href={`${URL}/chi-tiet`} className={cx('hover')}>
+                                                <p className={cx('name')}>{item.nameRoom}</p>
                                             </a>
-                                            <p className={cx('desc')}>{item.acreage}</p>
+                                            <p className={cx('desc')}>{item.acreageRoom}</p>
+                                            <div className={cx('text')}>
+                                                <p> {item.descRoom} </p>
+                                            </div>
                                             <div className={cx('price')}>
-                                                <p> {Number(item.price).toLocaleString()} VND</p>
+                                                <p> {Number(item.priceRoom).toLocaleString()} VND</p>
                                                 <div className={cx('rate')}>
                                                     <span>
                                                         <BsStarFill></BsStarFill>
                                                     </span>
-                                                    <p>{item.rating}</p>
+                                                    <p>{item.rateRoom} (Review) </p>
                                                 </div>
                                             </div>
                                         </div>

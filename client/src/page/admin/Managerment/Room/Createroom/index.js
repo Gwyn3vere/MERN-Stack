@@ -86,7 +86,6 @@ function Createroom() {
             thumbnailRoom: e.target.files[0],
         }));
     };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -139,7 +138,7 @@ function Createroom() {
         }
 
         roomApi
-            .createRoom(formData)
+            .updateRoom(formData)
             .then((response) => {
                 toast.success('Tạo phòng thành công');
                 setTimeout(() => {

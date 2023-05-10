@@ -2,12 +2,12 @@
 import classNames from 'classnames/bind';
 import styles from './Updateroom.module.scss';
 import image from '~/assets/images';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { AiFillFileImage } from 'react-icons/ai';
 import roomApi from '~/api/room';
 import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -34,6 +34,7 @@ const amenities = [
 
 function UpdateRoom() {
     const navigate = useNavigate();
+    const { _id } = useParams();
     const { getRootProps, getInputProps } = useDropzone({
         accept: '',
         onDrop: (acceptedFiles) => {
@@ -57,6 +58,30 @@ function UpdateRoom() {
         amenitiesRoom: [],
         thumbnailRoom: null,
     });
+    // Sử dụng useEffect để lấy thông tin phòng từ server khi component được render
+    useEffect(() => {
+        roomApi
+            .getRoomById(_id)
+            .then((roomDetail) => {
+                setFormValues({
+                    nameRoom: roomDetail.nameRoom,
+                    slugRoom: roomDetail.slugRoom,
+                    priceRoom: roomDetail.priceRoom,
+                    quantityRoom: roomDetail.quantityRoom,
+                    numberCustomer: roomDetail.numberCustomer,
+                    bedRoom: roomDetail.bedRoom,
+                    descRoom: roomDetail.descRoom,
+                    typeRoom: roomDetail.typeRoom,
+                    acreageRoom: roomDetail.acreageRoom,
+                    codeRoom: roomDetail.codeRoom,
+                    amenitiesRoom: roomDetail.amenitiesRoom,
+                    thumbnailRoom: null, // không lấy thumbnailRoom từ server để tránh trường hợp server trả về quá nhiều dữ liệu
+                });
+            })
+            .catch((error) => {
+                // xử lý lỗi khi lấy dữ liệu từ server
+            });
+    }, [_id]);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormValues((prevValues) => ({
@@ -64,21 +89,13 @@ function UpdateRoom() {
             [name]: value,
         }));
     };
-    const handleAmenitiesChange = (e) => {
-        const { value } = e.target;
-        const isChecked = e.target.checked;
-        setFormValues((prevValues) => {
-            let amenitiesRoom = [...prevValues.amenitiesRoom];
-            if (isChecked) {
-                amenitiesRoom.push(value);
-            } else {
-                amenitiesRoom = amenitiesRoom.filter((item) => item !== value);
-            }
-            return {
-                ...prevValues,
-                amenitiesRoom,
-            };
-        });
+    const handleAmenitiesChange = (amenity) => {
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            amenitiesRoom: prevValues.amenitiesRoom.includes(amenity.id)
+                ? prevValues.amenitiesRoom.filter((a) => a !== amenity.id)
+                : [...prevValues.amenitiesRoom, amenity.id],
+        }));
     };
     const handleThumbnailChange = (e) => {
         setFormValues((prevValues) => ({
@@ -139,7 +156,7 @@ function UpdateRoom() {
         }
 
         roomApi
-            .createRoom(formData)
+            .createRoom(_id, formData)
             .then((response) => {
                 toast.success('Tạo phòng thành công');
                 setTimeout(() => {
@@ -156,7 +173,7 @@ function UpdateRoom() {
             <div className={cx('container')}>
                 <div className={cx('title')}>
                     <img className={cx('bgtitle')} src={image.bgtitle} alt="bgtitle" />
-                    <div className={cx('name')}>Create Room</div>
+                    <div className={cx('name')}>Update Room</div>
                     <div className={cx('breadcrumb')}>
                         <p>
                             <a href="http://localhost:3000/overview"> Tổng quan</a>
@@ -166,7 +183,7 @@ function UpdateRoom() {
                             <a href="http://localhost:3000/room"> Quản lí phòng</a>
                         </p>
                         <p>/</p>
-                        <p> Tạo phòng</p>
+                        <p> Sửa thông tin phòng</p>
                     </div>
                 </div>
 
@@ -320,16 +337,17 @@ function UpdateRoom() {
                         <div className={cx('check')}>
                             <label htmlFor="amenitiesRoom">Tiện nghi</label>
                             <div className={cx('box')}>
-                                {amenities.map((item) => {
+                                {amenities.map((amenity) => {
+                                    const isChecked = formValues.amenitiesRoom.includes(amenity.id);
                                     return (
-                                        <div className={cx('checkbox')} key={item.id}>
+                                        <div className={cx('checkbox')} key={amenity.id}>
                                             <input
                                                 type="checkbox"
                                                 name="amenitiesRoom"
-                                                value={item.name}
-                                                onChange={handleAmenitiesChange}
+                                                checked={isChecked}
+                                                onChange={() => handleAmenitiesChange(amenity.id)}
                                             />
-                                            <p> {item.name} </p>
+                                            <p>{amenity.name}</p>
                                         </div>
                                     );
                                 })}

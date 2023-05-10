@@ -1,31 +1,31 @@
 import { useState, useEffect } from 'react';
 
-function useSort(rooms, activeTabId) {
-    const [sortedRooms, setSortedRooms] = useState(rooms);
+function useSort(roomsList, activeTabId) {
+    const [sortedRooms, setSortedRooms] = useState(roomsList);
 
     useEffect(() => {
         switch (activeTabId) {
             case 1:
                 // sort by room name in ascending order
-                setSortedRooms([...rooms].sort((a, b) => a.id - b.id));
+                setSortedRooms([...roomsList].sort((a, b) => a._id - b._id));
                 break;
             case 2:
                 // sort by room price in descending order
-                setSortedRooms([...rooms].sort((a, b) => b.price - a.price));
+                setSortedRooms([...roomsList].sort((a, b) => b.priceRoom - a.priceRoom));
                 break;
             case 3:
                 // sort by room price in ascending order
-                setSortedRooms([...rooms].sort((a, b) => a.price - b.price));
+                setSortedRooms([...roomsList].sort((a, b) => a.priceRoom - b.priceRoom));
                 break;
             case 4:
                 // sort by room name in descending order
-                setSortedRooms([...rooms].sort((a, b) => a.name.localeCompare(b.name)));
+                setSortedRooms([...roomsList].sort((a, b) => a.nameRoom.localeCompare(b.nameRoom)));
                 break;
             default:
-                setSortedRooms(rooms);
+                setSortedRooms(roomsList);
                 break;
         }
-    }, [rooms, activeTabId]);
+    }, [roomsList, activeTabId]);
 
     return sortedRooms;
 }
