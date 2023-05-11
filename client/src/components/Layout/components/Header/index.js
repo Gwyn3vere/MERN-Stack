@@ -12,7 +12,6 @@ import authApi from '~/api/auth';
 
 const cx = classNames.bind(styles);
 const URL = process.env.REACT_APP_ANDRESS_IP;
-console.log(URL);
 
 const menuList = [
     { id: 1, title: 'Trang chủ', url: `${URL}/` },

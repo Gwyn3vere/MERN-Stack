@@ -106,6 +106,10 @@ function Createroom() {
 
         const errors = {};
 
+        if (formValues.thumbnailRoom === null || typeof formValues.thumbnailRoom !== 'object') {
+            errors.thumbnailRoom = 'Vui lòng chọn ảnh cho phòng';
+        }
+
         for (let [key, value] of formData.entries()) {
             if (value === null || value === '') {
                 errors[key] = `${key} Không được để trống`;
@@ -138,7 +142,7 @@ function Createroom() {
         }
 
         roomApi
-            .updateRoom(formData)
+            .createRoom(formData)
             .then((response) => {
                 toast.success('Tạo phòng thành công');
                 setTimeout(() => {

@@ -102,6 +102,21 @@ class RoomController {
     }
   }
 
+  async deleteRoom(req, res) {
+    try {
+      const { _id } = req.params;
+      // Tìm phòng theo ID
+      const room = await Room.findOneAndDelete(_id);
+      if (!room) {
+        return res.status(404).json({ message: "Phòng không tồn tại" });
+      }
+      res.json({ message: "Xoá phòng thành công" });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Lỗi server" });
+    }
+  }
+
   async getRoomBySlug(req, res) {
     try {
       const { slugRoom } = req.params;

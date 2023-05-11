@@ -56,12 +56,22 @@ const getRoomList = async () => {
     }
 };
 
+const deleteRoom = async (_id) => {
+    try {
+        const response = await axios.delete(`${BASE_URL}/room/delete/${_id}`);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response.data.message);
+    }
+};
+
 const roomApi = {
     createRoom,
     getRoomList,
     updateRoom,
     getRoomBySlug,
     getRoomById,
+    deleteRoom,
 };
 
 export default roomApi;

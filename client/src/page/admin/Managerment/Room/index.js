@@ -58,11 +58,6 @@ function Room() {
                                 <option value="audi">Audi</option>
                             </select>
                         </div>
-                        <div className={cx('delete')}>
-                            <div className={cx('delete-select')}>
-                                Drop<MdDelete></MdDelete>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div className={cx('list')}>
@@ -95,6 +90,24 @@ function Room() {
                                 <NavLink to={`${URL}/update-room/${room._id}`}>
                                     <div className={cx('update')}>Sửa</div>
                                 </NavLink>
+                                <div className={cx('delete')}>
+                                    <div
+                                        className={cx('delete-select')}
+                                        onClick={async () => {
+                                            if (window.confirm('Bạn có chắc chắn muốn xoá phòng này không?')) {
+                                                try {
+                                                    await roomApi.deleteRoom(room._id);
+                                                    const updatedRooms = rooms.filter((r) => r._id !== room._id);
+                                                    setRooms(updatedRooms);
+                                                } catch (error) {
+                                                    console.log(error.message);
+                                                }
+                                            }
+                                        }}
+                                    >
+                                        Drop<MdDelete></MdDelete>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>

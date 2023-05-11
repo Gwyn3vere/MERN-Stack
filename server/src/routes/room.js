@@ -19,5 +19,6 @@ router.put(
   upload.single("thumbnailRoom"),
   roomController.updateRoom
 );
+router.delete("/delete/:_id", roomController.deleteRoom);
 
 module.exports = router;
