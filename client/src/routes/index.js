@@ -11,7 +11,7 @@ import Room from '~/page/admin/Managerment/Room';
 import Home from '~/page/customer/Home';
 import Rooms from '~/page/customer/Rooms';
 import Details from '~/page/customer/Details';
-import Order from '~/page/customer/Order';
+import Booking from '~/page/customer/Booking';
 import Login from '~/page/customer/Login';
 import Register from '~/page/customer/Register';
 
@@ -30,7 +30,7 @@ const privateRoutes = [
     { path: '/create-room', component: Createroom, layout: AdminLayout, role: ['admin'] },
     { path: '/update-room/:_id', component: Updateroom, layout: AdminLayout, role: ['admin'] },
     { path: '/room', component: Room, layout: AdminLayout, role: ['admin'] },
-    { path: '/dat-phong', component: Order, role: ['customer', 'admin'] },
+    { path: '/dat-phong', component: Booking, role: ['customer', 'admin'] },
 ];
 
 export { publicRoutes, privateRoutes };

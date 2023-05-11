@@ -102,6 +102,22 @@ class RoomController {
     }
   }
 
+  async updateQuantity(req, res) {
+    try {
+      const { quantityRoom } = req.body;
+      const room = await Room.findById(req.params._id);
+      if (!room) {
+        return res.status(404).json({ message: "Room not found" });
+      }
+      room.quantityRoom = quantityRoom;
+      const updatedRoom = await room.save();
+      res.json({ room: updatedRoom });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+
   async deleteRoom(req, res) {
     try {
       const { _id } = req.params;

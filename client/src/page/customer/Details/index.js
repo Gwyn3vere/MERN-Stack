@@ -8,7 +8,7 @@ import Rating from './Rating';
 import { MdPolicy } from 'react-icons/md';
 import { AiFillInfoCircle, AiFillCamera, AiFillWechat } from 'react-icons/ai';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import roomApi from '~/api/room';
 
 const cx = classNames.bind(styles);
@@ -16,7 +16,14 @@ const URL = process.env.REACT_APP_ANDRESS_IP;
 
 function Details() {
     const { slugRoom } = useParams();
+    const navigate = useNavigate();
     const [roomDetail, setRoomDetail] = useState(null);
+    const [adults, setAdults] = useState(1);
+    const [children, setChildren] = useState(0);
+    const [checkin, setCheckin] = useState('');
+    const [checkout, setCheckout] = useState('');
+    const [totalDays, setTotalDays] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
         const fetchRoom = async () => {
@@ -30,6 +37,51 @@ function Details() {
 
         fetchRoom();
     }, [slugRoom]);
+
+    useEffect(() => {
+        if (roomDetail && checkin && checkout) {
+            const startDate = new Date(checkin);
+            const endDate = new Date(checkout);
+            const days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            const price = roomDetail.room.priceRoom;
+            setTotalDays(days);
+            setTotalPrice(days * price);
+        }
+    }, [roomDetail, checkin, checkout]);
+
+    // Xử lý sự kiện thay đổi số lượng người lớn và trẻ em
+    const handleAdultChange = (event) => {
+        setAdults(parseInt(event.target.value));
+    };
+    const handleChildrenChange = (event) => {
+        setChildren(parseInt(event.target.value));
+    };
+
+    // Xử lý sự kiện thay đổi ngày checkin và checkout
+    const handleCheckinChange = (event) => {
+        setCheckin(event.target.value);
+        if (checkout) {
+            // Tính toán số ngày và tổng giá tiền
+            const startDate = new Date(event.target.value);
+            const endDate = new Date(checkout);
+            const days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            const price = roomDetail ? roomDetail.room.priceRoom : 0;
+            setTotalDays(days);
+            setTotalPrice(days * price);
+        }
+    };
+    const handleCheckoutChange = (event) => {
+        setCheckout(event.target.value);
+        if (checkin) {
+            // Tính toán số ngày và tổng giá tiền
+            const startDate = new Date(checkin);
+            const endDate = new Date(event.target.value);
+            const days = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+            const price = roomDetail ? roomDetail.room.priceRoom : 0;
+            setTotalDays(days);
+            setTotalPrice(days * price);
+        }
+    };
 
     // Tạo active cho tabList
     const tabList = [
@@ -58,16 +110,21 @@ function Details() {
                 return null;
         }
     };
-    const types = [
-        { id: 1, name: 'VIP' },
-        { id: 2, name: 'Standand' },
-        { id: 3, name: 'Super' },
-        { id: 4, name: 'Luxury' },
-        { id: 5, name: 'King' },
-        { id: 6, name: 'Trendy' },
-        { id: 7, name: 'Popular' },
-        { id: 8, name: 'Vintage' },
-    ];
+
+    // Hàm sao lưu và chuyển hướng
+    const handleBooking = () => {
+        navigate('/dat-phong', {
+            state: {
+                checkin,
+                checkout,
+                adults,
+                children,
+                totalDays,
+                totalPrice,
+                room: slugRoom,
+            },
+        });
+    };
 
     return (
         <main className={cx('wrapper')}>
@@ -100,25 +157,60 @@ function Details() {
                                     <span>Lên kế hoạt cho kì nghỉ tuyệt vời của bạn!</span>
                                 </div>
                                 <div className={cx('input-group')}>
-                                    <input type="search" placeholder="Tìm kiếm phòng" />
-                                    <input type="text" placeholder="Loại phòng" />
-                                    <input type="date" />
-                                </div>
-                                <div className={cx('radio-group')}>
-                                    <div className={cx('sortby')}>
-                                        <p>Lọc theo loại phòng</p>
+                                    <div className={cx('group')}>
+                                        <label htmlFor="adults">Người lớn</label>
+                                        <input type="number" id="adults" value={adults} onChange={handleAdultChange} />
                                     </div>
-                                    {types.map((type) => {
-                                        return (
-                                            <div className={cx('check')} key={type.id}>
-                                                <input type="radio" id="radioId" value={type.name} />
-                                                <label htmlFor="radioId"> {type.name} </label>
-                                            </div>
-                                        );
-                                    })}
+                                    <div className={cx('group')}>
+                                        <label htmlFor="children">Trẻ em</label>
+                                        <input
+                                            type="number"
+                                            id="children"
+                                            value={children}
+                                            onChange={handleChildrenChange}
+                                        />
+                                    </div>
+                                    <div className={cx('group')}>
+                                        <label htmlFor="checkin">Ngày nhận phòng</label>
+                                        <input
+                                            type="date"
+                                            id="checkin"
+                                            value={checkin}
+                                            onChange={handleCheckinChange}
+                                        />
+                                    </div>
+                                    <div className={cx('group')}>
+                                        <label htmlFor="checkout">Ngày trả phòng</label>
+                                        <input
+                                            type="date"
+                                            id="checkout"
+                                            value={checkout}
+                                            onChange={handleCheckoutChange}
+                                        />
+                                    </div>
+                                </div>
+                                <div className={cx('review-group')}>
+                                    <h2>Review</h2>
+                                    <div>
+                                        <div className={cx('review')}>
+                                            <span>Thời gian:</span>
+
+                                            {totalDays > 1 ? (
+                                                <p>
+                                                    {totalDays} ngày {totalDays - 1} đêm
+                                                </p>
+                                            ) : (
+                                                <p>{totalDays} ngày</p>
+                                            )}
+                                        </div>
+                                        <div className={cx('review')}>
+                                            <span>Chi phí:</span>
+                                            <p>{Number(totalPrice).toLocaleString()} VND</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className={cx('button')}>
-                                    <button>Đặt phòng</button>
+                                    <button onClick={handleBooking}>Đặt phòng</button>
                                 </div>
                             </div>
                         </div>

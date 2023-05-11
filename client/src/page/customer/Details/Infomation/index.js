@@ -135,7 +135,7 @@ function Infomation(props) {
                 <div className={cx('first')}>
                     <p className={cx('name')}>{roomDetail && roomDetail.room.nameRoom}</p>
                     <div className={cx('price')}>
-                        <span>{roomDetail && roomDetail.room.priceRoom} VND</span>
+                        <span>{roomDetail && Number(roomDetail.room.priceRoom).toLocaleString()} VND</span>
                         <p>/ ngày</p>
                     </div>
                     <div className={cx('rating')}>

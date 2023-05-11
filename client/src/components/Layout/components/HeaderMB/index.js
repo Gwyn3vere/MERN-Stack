@@ -5,7 +5,7 @@ import { RxAvatar } from 'react-icons/rx';
 import { BiLogIn } from 'react-icons/bi';
 import useActive from './useActive';
 import { NavLink } from 'react-router-dom';
-import authApi from '~/api/auth';
+// import authApi from '~/api/auth';
 
 const cx = classNames.bind(styles);
 const URL = process.env.REACT_APP_ANDRESS_IP;
@@ -15,7 +15,7 @@ const menuListLogout = [
     { id: 2, title: 'Search', icon: <AiOutlineSearch />, url: `${URL}/phong` },
     { id: 3, title: 'Love', icon: <AiOutlineHeart />, url: `${URL}/phong` },
     { id: 4, title: 'Notification', icon: <AiOutlineBell />, url: `${URL}/phong` },
-    { id: 5, title: 'Login', icon: <RxAvatar />, url: `${URL}/ho-so-ca-nhan` },
+    { id: 5, title: 'Login', icon: <RxAvatar />, url: `${URL}/dang-nhap` },
 ];
 
 const menuListLogin = [
@@ -30,6 +30,11 @@ function HeaderMB() {
     const { activeId, handleItemClick } = useActive();
 
     const user = JSON.parse(localStorage.getItem('user'));
+
+    // const handleLogout = () => {
+    //     authApi.logout();
+    //     window.location.reload();
+    // };
 
     return (
         <header className={cx('wrapper')}>

@@ -25,7 +25,7 @@ const getRoomBySlug = async (slugRoom) => {
     }
 };
 
-export const getRoomById = async (_id) => {
+const getRoomById = async (_id) => {
     try {
         const response = await axios.get(`${BASE_URL}/room/find/${_id}`);
         return response.data;
@@ -41,6 +41,15 @@ const updateRoom = async (_id, formData) => {
                 'Content-Type': 'multipart/form-data',
             },
         });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response.data.message);
+    }
+};
+
+const updateRoomQuantity = async (_id, quantityRoom) => {
+    try {
+        const response = await axios.put(`${BASE_URL}/room/update-quantity/${_id}`, { quantityRoom });
         return response.data;
     } catch (error) {
         throw new Error(error.response.data.message);
@@ -72,6 +81,7 @@ const roomApi = {
     getRoomBySlug,
     getRoomById,
     deleteRoom,
+    updateRoomQuantity,
 };
 
 export default roomApi;

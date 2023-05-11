@@ -11,6 +11,7 @@ import { MdLocationOn } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
+const URL = process.env.REACT_APP_ANDRESS_IP;
 
 function Home() {
     const rooms = [
@@ -71,10 +72,10 @@ function Home() {
     ];
 
     const menuList = [
-        { id: 1, name: 'Travel', icon: <MdLocationOn />, url: 'http://localhost:3000/' },
-        { id: 2, name: 'Rooms', icon: <FaHotel />, url: 'http://localhost:3000/phong' },
-        { id: 3, name: 'Service', icon: <FaServicestack />, url: 'http://localhost:3000/' },
-        { id: 4, name: 'Event', icon: <BsFillCalendarEventFill />, url: 'http://localhost:3000/' },
+        { id: 1, name: 'Travel', icon: <MdLocationOn />, url: `${URL}/` },
+        { id: 2, name: 'Rooms', icon: <FaHotel />, url: `${URL}/phong` },
+        { id: 3, name: 'Service', icon: <FaServicestack />, url: `${URL}/dich-vu` },
+        { id: 4, name: 'Event', icon: <BsFillCalendarEventFill />, url: `${URL}/su-kien` },
     ];
 
     const lordicon = [
@@ -231,7 +232,7 @@ function Home() {
                                 return (
                                     <div className={cx('card')} key={item.id}>
                                         <div className={cx('thumbnail')}>
-                                            <a href="http://localhost:3000/chi-tiet">
+                                            <a href={`${URL}/chi-tiet`}>
                                                 <figure>
                                                     <img src={item.thumnbail} alt="" />
                                                 </figure>
@@ -246,7 +247,7 @@ function Home() {
                                             </div>
                                         </div>
                                         <div className={cx('info')}>
-                                            <a href="http://localhost:3000/chi-tiet" className={cx('hover')}>
+                                            <a href={`${URL}/chi-tiet`} className={cx('hover')}>
                                                 <p className={cx('name')}>{item.name}</p>
                                             </a>
                                             <p className={cx('content')}>{item.acreage}</p>
