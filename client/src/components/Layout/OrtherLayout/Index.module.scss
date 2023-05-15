@@ -1,1 +1,22 @@
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--primary);
 
+    span {
+        display: flex;
+        margin: 10px 0;
+        font-size: 30px;
+        color: var(--text-logo);
+
+        p {
+            color: var(--text-color);
+            font-weight: 700;
+            font-size: 20px;
+        }
+    }
+}

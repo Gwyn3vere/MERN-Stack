@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import classNames from 'classnames/bind';
 import styles from './Updateroom.module.scss';
-import image from '~/assets/images';
 import React, { useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { AiFillFileImage } from 'react-icons/ai';
@@ -182,7 +181,6 @@ function UpdateRoom() {
             <ToastContainer />
             <div className={cx('container')}>
                 <div className={cx('title')}>
-                    <img className={cx('bgtitle')} src={image.bgtitle} alt="bgtitle" />
                     <div className={cx('name')}>Update Room</div>
                     <div className={cx('breadcrumb')}>
                         <p>
@@ -334,7 +332,7 @@ function UpdateRoom() {
                                         />
                                     )}
                                     {!formValues.thumbnailRoom && (
-                                        <p style={{ border: '1px dashed #fff' }}>
+                                        <p style={{ border: '1px dashed #000' }}>
                                             <AiFillFileImage className={cx('drop-img')}></AiFillFileImage>
                                             Kéo và thả ảnh vào đây hoặc nhấp để chọn ảnh
                                         </p>
@@ -362,20 +360,6 @@ function UpdateRoom() {
                                         </div>
                                     );
                                 })}
-                                {/* {formValues.amenitiesRoom.map((amenity) => {
-                                    return (
-                                        <div className={cx('checkbox')} key={amenity}>
-                                            <input
-                                                type="checkbox"
-                                                name="amenitiesRoom"
-                                                value={amenity}
-                                                checked={formValues.amenitiesRoom.includes(amenity)}
-                                                onChange={() => handleAmenitiesChange(amenity)}
-                                            />
-                                            <p> {amenity} </p>
-                                        </div>
-                                    );
-                                })} */}
                             </div>
                         </div>
                         <div className={cx('desc')}>
@@ -388,7 +372,7 @@ function UpdateRoom() {
                                 value={formValues.descRoom}
                                 onChange={handleChange}
                             />
-                            <button type="submit">Tạo phòng</button>
+                            <button type="submit">Sửa phòng</button>
                         </div>
                     </div>
                 </form>

@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind';
 import styles from './Room.module.scss';
-import image from '~/assets/images';
 import { MdAddCircle, MdDelete } from 'react-icons/md';
 import { FaSearch } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
@@ -27,7 +26,6 @@ function Room() {
         <main className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('title')}>
-                    <img className={cx('bgtitle')} src={image.bgtitle} alt="bgtitle" />
                     <div className={cx('name')}>Quản lí phòng</div>
                     <div className={cx('breadcrumb')}>
                         <p>
@@ -64,7 +62,9 @@ function Room() {
                     <div className={cx('menu')}>
                         <div className={cx('name')}>
                             <p>STT</p>
-                            <p>Check</p>
+                            <p>
+                                <input type="checkbox" />
+                            </p>
                             <p>Tên phòng</p>
                             <p>Thumbnail</p>
                             <p>Số lượng</p>

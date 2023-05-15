@@ -1,8 +1,6 @@
 import classNames from 'classnames/bind';
-import Header from '~/components/Layout/components/Header';
-import Footer from '../components/Footer';
 import styles from './Index.module.scss';
-import HeaderMB from '../components/HeaderMB';
+import Backdoor from '../components/Backdoor';
 import { useState, useEffect } from 'react';
 import { PulseLoader } from 'react-spinners';
 import { FaFoursquare } from 'react-icons/fa';
@@ -30,12 +28,8 @@ function CustomerLayout({ children }) {
                 </div>
             ) : (
                 <div className={cx('container')}>
-                    <Header className={cx('header')} />
-                    <div className={cx('content')}>
-                        <div>{children}</div>
-                    </div>
-                    <Footer />
-                    <HeaderMB />
+                    <Backdoor />
+                    <div className={cx('content')}>{children}</div>
                 </div>
             )}
         </div>

@@ -5,9 +5,55 @@
 }
 
 .container {
-    padding: 0 10px;
+    padding: 0 15px;
     height: 760px;
-    border-right: 1px solid var(--primary);
+}
+
+.company {
+    display: flex;
+    align-items: center;
+
+    span {
+        display: flex;
+        font-size: 30px;
+        width: 50px;
+        height: 70px;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-logo);
+    }
+
+    p {
+        font-size: 25px;
+        font-weight: 500;
+    }
+
+    strong {
+        color: var(--text-logo);
+    }
+}
+
+.role {
+    .box {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+
+        span {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin {
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+    }
 }
 
 .sidebar {
@@ -16,7 +62,7 @@
 
     .icons,
     .menu {
-        height: 70px;
+        height: 50px;
         display: flex;
         align-items: center;
 
@@ -29,9 +75,9 @@
     }
 
     .icons {
-        width: 70px;
-        height: 70px;
-        font-size: 30px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
         justify-content: center;
 
         .ico {
@@ -42,15 +88,17 @@
         }
 
         .toggle {
-            font-size: 35px;
+            font-size: 20px;
         }
     }
 
     .menu {
         // display: none;
 
-        .text {
-            width: 210px;
+        .text,
+        p {
+            width: 150px;
+            font-weight: 500;
         }
     }
 }

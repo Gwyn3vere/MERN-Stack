@@ -15,7 +15,7 @@ const menuListLogout = [
     { id: 2, title: 'Search', icon: <AiOutlineSearch />, url: `${URL}/phong` },
     { id: 3, title: 'Love', icon: <AiOutlineHeart />, url: `${URL}/phong` },
     { id: 4, title: 'Notification', icon: <AiOutlineBell />, url: `${URL}/phong` },
-    { id: 5, title: 'Login', icon: <RxAvatar />, url: `${URL}/dang-nhap` },
+    { id: 5, title: 'Login', icon: <RxAvatar />, url: `${URL}/cai-dat` },
 ];
 
 const menuListLogin = [
@@ -30,11 +30,6 @@ function HeaderMB() {
     const { activeId, handleItemClick } = useActive();
 
     const user = JSON.parse(localStorage.getItem('user'));
-
-    // const handleLogout = () => {
-    //     authApi.logout();
-    //     window.location.reload();
-    // };
 
     return (
         <header className={cx('wrapper')}>

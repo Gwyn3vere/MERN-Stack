@@ -1,76 +1,63 @@
 .wrapper {
-    height: 70px;
-    background-color: var(--bg-header);
     position: sticky;
     top: 0;
     z-index: 2;
+    padding: 0 4rem;
+    background-color: var(--text-color);
 }
 
 .container {
+    height: 70px;
     display: flex;
     align-items: center;
-    margin: 0 4rem;
     justify-content: space-between;
 }
 
 // ============ [Navbar] ============
+.search {
+    width: auto;
+    height: 40px;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 500px 40px;
+    input {
+        width: 500px;
+        height: 100%;
+        padding: 0 10px;
+        border: none;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        background-color: var(--bg-session);
 
-.left,
-.right {
-    display: flex;
-}
-
-.left {
-    .search {
-        display: flex;
-        margin: 13px 0;
-        border: 3px solid var(--border);
-        border-radius: 10px;
-
-        input {
-            padding: 0 10px;
-            width: 300px;
-            height: 40px;
+        &:focus {
+            outline: none;
             border: none;
-            background: none;
-            color: #fff;
-            font-weight: 700;
-            &:focus {
-                outline: none;
-            }
-        }
-
-        .search-btn {
-            color: var(--border);
-            height: 40px;
-            width: 40px;
-            border: none;
-            align-items: center;
-            display: flex;
-            justify-content: center;
-            background: none;
         }
     }
-}
 
-.right {
-    .icon {
-        height: 40px;
+    span {
         width: 40px;
-        align-items: center;
+        height: 100%;
         display: flex;
+        align-items: center;
         justify-content: center;
-        border: 3px solid var(--border);
-        border-radius: 10px;
-        color: var(--border);
-        margin-right: 10px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        background-color: var(--bg-session);
     }
+}
 
-    .navbar-item {
-        width: 200px;
-        height: 40px;
-        span {
-            color: var(--text-color);
-        }
-    }
+.right {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    justify-content: center;
+    background-color: aqua;
+}
+
+.dot {
+    width: 40px;
+    height: 40px;
 }

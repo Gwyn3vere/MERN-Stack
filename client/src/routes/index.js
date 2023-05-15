@@ -1,5 +1,5 @@
 // OrtherLayout
-import { OrtherLayout, AdminLayout } from '~/components/Layout';
+import { OrtherLayout, AdminLayout, MobileLayout } from '~/components/Layout';
 
 // AdminLayout
 import Overview from '~/page/admin/Overview';
@@ -14,6 +14,8 @@ import Details from '~/page/customer/Details';
 import Booking from '~/page/customer/Booking';
 import Login from '~/page/customer/Login';
 import Register from '~/page/customer/Register';
+import Settings from '~/page/customer/Settings';
+import Account from '~/page/admin/Managerment/Account';
 
 // Public routes
 const publicRoutes = [
@@ -29,8 +31,10 @@ const privateRoutes = [
     { path: '/overview', component: Overview, layout: AdminLayout, role: ['admin'] },
     { path: '/create-room', component: Createroom, layout: AdminLayout, role: ['admin'] },
     { path: '/update-room/:_id', component: Updateroom, layout: AdminLayout, role: ['admin'] },
-    { path: '/room', component: Room, layout: AdminLayout, role: ['admin'] },
+    { path: '/rooms', component: Room, layout: AdminLayout, role: ['admin'] },
+    { path: '/accounts', component: Account, layout: AdminLayout, role: ['admin'] },
     { path: '/dat-phong', component: Booking, role: ['customer', 'admin'] },
+    { path: '/cai-dat', component: Settings, layout: MobileLayout, role: ['customer', 'admin'] },
 ];
 
 export { publicRoutes, privateRoutes };

@@ -53,6 +53,22 @@ class UserController {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
     res.json({ user, token });
   }
+
+  async updateRole(req, res) {
+    try {
+      const { role } = req.body;
+      const user = await Users.findById(req.params._id);
+      if (!user) {
+        return res.status(404).json({ message: "Room not found" });
+      }
+      user.role = role;
+      const updatedRole = await user.save();
+      res.json({ user: updatedRole });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
 }
 
 module.exports = new UserController();

@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import classNames from 'classnames/bind';
 import styles from './Createroom.module.scss';
-import image from '~/assets/images';
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { AiFillFileImage } from 'react-icons/ai';
@@ -158,7 +157,6 @@ function Createroom() {
             <ToastContainer />
             <div className={cx('container')}>
                 <div className={cx('title')}>
-                    <img className={cx('bgtitle')} src={image.bgtitle} alt="bgtitle" />
                     <div className={cx('name')}>Create Room</div>
                     <div className={cx('breadcrumb')}>
                         <p>
@@ -310,7 +308,7 @@ function Createroom() {
                                         />
                                     )}
                                     {!formValues.thumbnailRoom && (
-                                        <p style={{ border: '1px dashed #fff' }}>
+                                        <p style={{ border: '1px dashed #000' }}>
                                             <AiFillFileImage className={cx('drop-img')}></AiFillFileImage>
                                             Kéo và thả ảnh vào đây hoặc nhấp để chọn ảnh
                                         </p>
