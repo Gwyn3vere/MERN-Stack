@@ -75,9 +75,9 @@ function Room() {
                         </div>
                     </div>
                     <div className={cx('info')}>
-                        {rooms.map((room) => (
+                        {rooms.map((room, index) => (
                             <div className={cx('card')} key={room._id}>
-                                <p>#</p>
+                                <p> {index + 1} </p>
                                 <div>
                                     <input type="checkbox" />
                                 </div>

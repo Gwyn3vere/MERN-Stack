@@ -12,6 +12,7 @@ const orderSchema = new Schema(
     children: { type: Number, required: true, trim: true },
     note: { type: String, required: false, trim: true },
     room: { type: String, required: true, trim: true },
+    service: { type: [], required: true, trim: true },
     checkin: { type: Date, required: true, trim: true },
     checkout: { type: Date, required: true, trim: true },
     total: { type: Number, required: true, trim: true },

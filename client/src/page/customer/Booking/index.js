@@ -3,8 +3,10 @@ import styles from './Booking.module.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import { MdDinnerDining, MdAddHome, MdAdminPanelSettings } from 'react-icons/md';
 import roomApi from '~/api/room';
 import orderApi from '~/api/order';
+import serviceApi from '~/api/service';
 
 const cx = classNames.bind(styles);
 const URL = process.env.REACT_APP_ANDRESS_IP;
@@ -16,13 +18,29 @@ function Booking() {
     const [roomQuantity, setRoomQuantity] = useState(1);
     const { checkin, checkout, adults, children, totalDays, totalPrice, room } = location.state;
     const [newTotalPrice, setNewTotalPrice] = useState(totalPrice);
+    const [lastTotalPrice, setLastTotalPrice] = useState(newTotalPrice);
+    const [activeIds, setActiveIds] = useState([]);
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
         email: '',
         quantity: 1,
+        service: [],
         note: '',
     });
+
+    const [serviceList, setServiceList] = useState([]);
+    useEffect(() => {
+        const fetchServices = async () => {
+            try {
+                const data = await serviceApi.getServiceList();
+                setServiceList(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchServices();
+    }, []);
 
     useEffect(() => {
         const fetchRoom = async () => {
@@ -36,6 +54,30 @@ function Booking() {
 
         fetchRoom();
     }, [room]);
+
+    useEffect(() => {
+        const calculateTotalPrice = () => {
+            let total = totalPrice;
+            let selectedServicesTotal = 0;
+            for (const service of serviceList) {
+                if (activeIds.includes(service.name)) {
+                    selectedServicesTotal += service.total;
+                }
+            }
+            const newTotalPrice = total + selectedServicesTotal;
+            setLastTotalPrice(newTotalPrice * roomQuantity);
+        };
+
+        calculateTotalPrice();
+    }, [activeIds, roomQuantity, serviceList, totalPrice]);
+
+    const handleCheckChange = (id) => {
+        if (activeIds.includes(id)) {
+            setActiveIds(activeIds.filter((activeId) => activeId !== id));
+        } else {
+            setActiveIds([...activeIds, id]);
+        }
+    };
 
     const handleQuantityInputChange = (event) => {
         const { name, value } = event.target;
@@ -51,6 +93,26 @@ function Booking() {
         }
     };
 
+    const handleServiceChange = (event, item) => {
+        const isChecked = event.target.checked;
+
+        setFormData((formData) => {
+            let service = [...formData.service];
+
+            if (isChecked) {
+                service.push({ name: item.name, price: item.total });
+            } else {
+                service = service.filter((serviceItem) => serviceItem.name !== item.name);
+            }
+
+            return {
+                ...formData,
+                service,
+            };
+        });
+        handleCheckChange(item.name);
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const user = JSON.parse(localStorage.getItem('user'));
@@ -60,6 +122,7 @@ function Booking() {
             name: formData.name,
             phone: formData.phone,
             email: formData.email,
+            service: [...formData.service],
             quantity: roomQuantity,
             adults: adults,
             children: children,
@@ -67,7 +130,7 @@ function Booking() {
             room: roomDetail.room.nameRoom,
             checkin: checkin,
             checkout: checkout,
-            total: newTotalPrice,
+            total: lastTotalPrice,
             user: userId,
         };
 
@@ -113,6 +176,19 @@ function Booking() {
         }));
     };
 
+    const renderIcon = (category) => {
+        switch (category) {
+            case 'eat':
+                return <MdDinnerDining />;
+            case 'eat1':
+                return <MdAddHome />;
+            case 'eat2':
+                return <MdAdminPanelSettings />;
+            default:
+                return null;
+        }
+    };
+
     return (
         <main className={cx('wrapper')}>
             <ToastContainer />
@@ -129,6 +205,84 @@ function Booking() {
                         </div>
                     </div>
                     <form className={cx('list')} onSubmit={handleSubmit}>
+                        <div className={cx('left')}>
+                            <div className={cx('form')}>
+                                <h2> Thông tin khách hàng</h2>
+                                <div className={cx('customer')}>
+                                    <div className={cx('input-group', 'name')}>
+                                        <label htmlFor="name">
+                                            Tên khách hàng <span>*</span>
+                                        </label>
+                                        <input type="text" id="name" name="name" onChange={handleInputChange} />
+                                    </div>
+                                    <div className={cx('input-group', 'email')}>
+                                        <label htmlFor="email">
+                                            Email khách <span>*</span>
+                                        </label>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            // value={`${user.email}`}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                </div>
+                                <div className={cx('customer')}>
+                                    <div className={cx('input-group', 'phone')}>
+                                        <label htmlFor="phone">
+                                            Số điện thoại <span>*</span>
+                                        </label>
+                                        <input type="number" id="phone" name="phone" onChange={handleNumberChange} />
+                                    </div>
+                                    <div className={cx('input-group', 'quantity')}>
+                                        <label htmlFor="quantity">
+                                            Số lượng phòng <span>*</span>
+                                        </label>
+                                        <input
+                                            type="number"
+                                            id="quantity"
+                                            name="quantity"
+                                            value={roomQuantity}
+                                            onChange={handleQuantityInputChange}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={cx('form')}>
+                                <h2>Dịch vụ</h2>
+                                <div className={cx('services')}>
+                                    {serviceList.map((item) => {
+                                        const isActive = activeIds.includes(item.name);
+                                        return (
+                                            <label
+                                                htmlFor={item.name}
+                                                className={isActive ? cx('label', 'active') : cx('label')}
+                                                key={item._id}
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    id={item.name}
+                                                    checked={isActive || false}
+                                                    name="service"
+                                                    value={item.name}
+                                                    onChange={(event) => handleServiceChange(event, item)}
+                                                />
+                                                <div className={cx('serv')}>
+                                                    <i className={cx('icons')}>{renderIcon(item.category)}</i>
+                                                    <p> {item.name} </p>
+                                                    <span> {Number(item.total).toLocaleString()} / Phòng </span>
+                                                </div>
+                                            </label>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                            <div className={cx('input-group')}>
+                                <label htmlFor="note">Ghi chú</label>
+                                <textarea type="text" id="note" rows="10" name="note" onChange={handleInputChange} />
+                            </div>
+                        </div>
                         <div className={cx('right')}>
                             <div className={cx('sidebar')}>
                                 <div className={cx('check')}>
@@ -171,8 +325,16 @@ function Booking() {
                                             <p>{Number(totalPrice).toLocaleString()} VND</p>
                                         </div>
                                         <div className={cx('checkin')}>
+                                            <span>Tổng giá dịch vụ: </span>
+                                            {activeIds.length > 0 ? (
+                                                <p>{formData.service.price} / Phòng</p>
+                                            ) : (
+                                                <p>0% / Phòng</p>
+                                            )}
+                                        </div>
+                                        <div className={cx('checkin')}>
                                             <span>Phí dịch vụ: </span>
-                                            <p>0 VND</p>
+                                            {activeIds.length > 0 ? <p>5% / Dịch vụ</p> : <p>0% / Dịch vụ</p>}
                                         </div>
                                     </div>
                                 </div>
@@ -181,57 +343,12 @@ function Booking() {
                                 <div className={cx('price')}>
                                     <div className={cx('checkin')}>
                                         <span>Tổng tiền: </span>
-                                        <p>{Number(newTotalPrice).toLocaleString()} VND</p>
+                                        <p>{Number(lastTotalPrice).toLocaleString()} VND</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className={cx('left')}>
-                            <div className={cx('form')}>
-                                <h1> Thông tin khách hàng</h1>
-                                <div className={cx('input-group')}>
-                                    <label htmlFor="name">Tên khách hàng</label>
-                                    <input type="text" id="name" name="name" onChange={handleInputChange} />
-                                </div>
-                                <div className={cx('customer')}>
-                                    <div className={cx('input-group')}>
-                                        <label htmlFor="phone">Số điện thoại</label>
-                                        <input type="number" id="phone" name="phone" onChange={handleNumberChange} />
-                                    </div>
-                                    <div className={cx('input-group')}>
-                                        <label htmlFor="email">Email khách</label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            // value={`${user.email}`}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                </div>
-                                <div className={cx('input-group')}>
-                                    <label htmlFor="quantity">Số lượng phòng</label>
-                                    <input
-                                        type="number"
-                                        id="quantity"
-                                        name="quantity"
-                                        value={roomQuantity}
-                                        onChange={handleQuantityInputChange}
-                                    />
-                                </div>
-                                <div className={cx('input-group')}>
-                                    <label htmlFor="note">Ghi chú</label>
-                                    <textarea
-                                        type="text"
-                                        id="note"
-                                        rows="10"
-                                        name="note"
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                            </div>
-                            <div className={cx('check')}>
-                                <button className={cx('check-btn')} type="submit">
+                            <div className={cx('confirm')}>
+                                <button className={cx('confirm-btn')} type="submit">
                                     <p>Xác nhận</p>
                                 </button>
                             </div>

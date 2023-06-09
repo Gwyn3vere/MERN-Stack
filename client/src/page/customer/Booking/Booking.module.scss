@@ -60,7 +60,7 @@
         display: grid;
         padding: 0 20px;
         grid-template-rows: 100%;
-        grid-template-columns: 30% 70%;
+        grid-template-columns: 70% 30%;
 
         .left,
         .right {
@@ -114,70 +114,169 @@
                     }
                 }
             }
+
+            .confirm {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--text-logo);
+
+                .confirm-btn {
+                    width: 100%;
+                    height: 50px;
+                    border: none;
+                    cursor: pointer;
+                    background-color: transparent;
+
+                    p {
+                        color: var(--text-color);
+                        font-size: 20px;
+                        font-weight: 700;
+                    }
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
         }
 
         .left {
             margin-top: 30px;
-            margin-right: 250px;
 
-            h1 {
-                text-transform: uppercase;
+            h2 {
                 margin-bottom: 30px;
+                color: var(--primary);
             }
 
-            .input-group {
-                label {
-                    font-weight: 700;
-                }
-                input {
-                    width: 100%;
-                    height: 40px;
-                    margin: 10px 0;
-                    padding: 0 10px;
-                    border-radius: 5px;
-                    border: 1px solid var(--primary);
+            .form {
+                margin-bottom: 30px;
 
-                    &:focus {
-                        outline: none;
-                        border: 1px solid var(--secondary);
-                    }
-                }
-
-                textarea {
-                    width: 100%;
-                    margin: 10px 0;
-                    padding: 10px;
-                    border-radius: 5px;
-                    font-family: 'Inter', sans-serif !important;
-                    border: 1px solid var(--primary);
-
-                    &:focus {
-                        outline: none;
-                        border: 1px solid var(--secondary);
-                    }
-                }
-            }
-
-            .customer {
-                display: flex;
-                justify-content: space-between;
-            }
-
-            .check {
-                .check-btn {
+                .customer {
                     display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 100px;
-                    height: 40px;
-                    border: none;
-                    background-color: var(--text-logo);
-                    cursor: pointer;
+                    justify-content: space-between;
 
-                    p {
-                        color: var(--text-color);
-                        font-weight: 700;
+                    .input-group {
+                        label {
+                            font-weight: 700;
+
+                            span {
+                                color: red;
+                            }
+                        }
+                        input {
+                            width: 100%;
+                            height: 40px;
+                            margin: 10px 0;
+                            padding: 0 10px;
+                            border-radius: 5px;
+                            border: 1px solid var(--border);
+
+                            &:focus {
+                                outline: none;
+                                // border: 1px solid var(--secondary);
+                                box-shadow: (0 0 5px var(--change-status));
+                            }
+                        }
                     }
+
+                    .quantity,
+                    .name,
+                    .phone,
+                    .email {
+                        width: 420px;
+                    }
+                }
+
+                .services {
+                    display: grid;
+                    padding: 0 50px;
+                    grid-template-columns: auto auto auto;
+                    grid-template-rows: auto;
+
+                    .label {
+                        width: 200px;
+                        height: 200px;
+                        padding: 10px;
+                        cursor: pointer;
+                        border-radius: 5px;
+                        border: 1px solid var(--border);
+
+                        .serv {
+                            display: flex;
+                            align-items: center;
+                            flex-direction: column;
+
+                            i {
+                                height: 50px;
+                            }
+
+                            .icons {
+                                font-size: 50px;
+                            }
+
+                            p {
+                                font-weight: 700;
+                                padding: 10px 0;
+                            }
+
+                            span {
+                                font-size: 15px;
+                                font-weight: 500;
+                                color: var(--secondary);
+                            }
+                        }
+
+                        /* Ẩn hộp checkbox gốc */
+                        input[type='checkbox'] {
+                            appearance: none;
+                            -webkit-appearance: none;
+                            -moz-appearance: none;
+                            width: 20px;
+                            height: 20px;
+                            border: 1px solid var(--border);
+                            border-radius: 50%;
+                            outline: none;
+                            position: relative;
+                        }
+
+                        /* Tạo style khi checkbox được chọn */
+                        input[type='checkbox']:checked {
+                            border: 1px solid var(--change-status);
+                            background-color: white;
+                        }
+
+                        /* Thêm dấu tick */
+                        input[type='checkbox']:checked::after {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 10px;
+                            height: 10px;
+                            background-color: var(--change-status);
+                            border-radius: 50%;
+                        }
+                    }
+
+                    .active {
+                        box-shadow: (0 0 5px var(--change-status));
+                    }
+                }
+            }
+
+            textarea {
+                width: 100%;
+                margin: 10px 0;
+                padding: 10px;
+                border-radius: 5px;
+                font-family: 'Inter', sans-serif !important;
+                border: 1px solid var(--primary);
+
+                &:focus {
+                    outline: none;
+                    border: 1px solid var(--secondary);
                 }
             }
         }

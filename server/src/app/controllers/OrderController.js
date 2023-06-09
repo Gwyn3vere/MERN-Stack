@@ -1,6 +1,6 @@
 const Order = require("../models/Order");
 
-class RoomController {
+class OrderController {
   async readOrder(req, res) {
     try {
       const orderList = await Order.find();
@@ -12,19 +12,36 @@ class RoomController {
 
   async createOrder(req, res) {
     try {
+      const {
+        name,
+        phone,
+        email,
+        quantity,
+        adults,
+        children,
+        note,
+        room,
+        service,
+        checkin,
+        checkout,
+        total,
+        user,
+      } = req.body;
+
       const order = new Order({
-        name: req.body.name,
-        phone: req.body.phone,
-        email: req.body.email,
-        quantity: req.body.quantity,
-        adults: req.body.adults,
-        children: req.body.children,
-        note: req.body.note,
-        room: req.body.room,
-        checkin: req.body.checkin,
-        checkout: req.body.checkout,
-        total: req.body.total,
-        user: req.body.user,
+        name,
+        phone,
+        email,
+        quantity,
+        adults,
+        children,
+        note,
+        room,
+        service,
+        checkin,
+        checkout,
+        total,
+        user,
       });
       const savedOrder = await order.save();
       res.status(201).json(savedOrder);
@@ -39,4 +56,4 @@ class RoomController {
   async getOrderById(req, res) {}
 }
 
-module.exports = new RoomController();
+module.exports = new OrderController();

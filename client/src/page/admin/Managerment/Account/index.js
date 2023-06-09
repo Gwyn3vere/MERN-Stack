@@ -64,9 +64,9 @@ function Account() {
                         </div>
                     </div>
                     <form className={cx('info')}>
-                        {users.map((user) => (
+                        {users.map((user, index) => (
                             <div className={cx('card')} key={user._id}>
-                                <p> # </p>
+                                <p> {index + 1} </p>
                                 <p>{user.email}</p>
                                 <select
                                     value={selectedRole[user._id] || user.role}

@@ -9,6 +9,7 @@ import { RxAvatar } from 'react-icons/rx';
 import { BiChevronDown, BiLogInCircle, BiLogOutCircle, BiMenu, BiSearch, BiAdjust } from 'react-icons/bi';
 import useActive from './useActive';
 import authApi from '~/api/auth';
+import { NavLink } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 const URL = process.env.REACT_APP_ANDRESS_IP;
@@ -97,9 +98,9 @@ function Header() {
                         {menuList.map((menu) => {
                             return (
                                 <div className={cx('button')} key={menu.id} onClick={() => handleItemClick(menu.id)}>
-                                    <a href={menu.url} className={cx('link', activeId === menu.id ? 'active' : '')}>
+                                    <NavLink to={menu.url} className={cx('link', activeId === menu.id ? 'active' : '')}>
                                         <p> {menu.title} </p>
-                                    </a>
+                                    </NavLink>
                                 </div>
                             );
                         })}
@@ -112,7 +113,6 @@ function Header() {
                         </div>
                         {user ? (
                             <div className={cx('right-btn', 'flex')}>
-                                {/* <p className={cx('email')}> {user.email} </p> */}
                                 <p>
                                     <RxAvatar></RxAvatar>
                                 </p>

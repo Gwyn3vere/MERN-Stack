@@ -9,6 +9,7 @@ import { FaBed } from 'react-icons/fa';
 import { MdPeople } from 'react-icons/md';
 import roomApi from '~/api/room';
 import { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 const URL = process.env.REACT_APP_ANDRESS_IP;
@@ -88,14 +89,14 @@ function Rooms() {
                                 return (
                                     <div className={cx('card')} key={item._id}>
                                         <div className={cx('thumbnail')}>
-                                            <a href={`${URL}/chi-tiet/${item.slugRoom}`}>
+                                            <NavLink to={`${URL}/chi-tiet/${item.slugRoom}`}>
                                                 <figure>
                                                     <img
                                                         src={`${URL}/uploads/${item.thumbnailRoom.public_id}`}
                                                         alt=""
                                                     />
                                                 </figure>
-                                            </a>
+                                            </NavLink>
                                             <div className={cx('type')}>
                                                 <div className={cx('item')}>
                                                     <div className={cx('category')}>
@@ -125,7 +126,15 @@ function Rooms() {
                                             </a>
                                             <p className={cx('desc')}>{item.acreageRoom}</p>
                                             <div className={cx('text')}>
-                                                <p> {item.descRoom} </p>
+                                                {item.quantityRoom >= 1 ? (
+                                                    <p>
+                                                        Tình trạng: <span className={cx('yes')}>Còn phòng</span>
+                                                    </p>
+                                                ) : (
+                                                    <p>
+                                                        Tình trạng: <span className={cx('no')}>Hết phòng</span>
+                                                    </p>
+                                                )}
                                             </div>
                                             <div className={cx('price')}>
                                                 <p> {Number(item.priceRoom).toLocaleString()} VND</p>

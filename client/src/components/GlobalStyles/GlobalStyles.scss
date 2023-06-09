@@ -2,13 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 :root {
     // [color]
-    --primary: #24244f;
+    --primary: #00296b;
     --secondary: #90f353;
     --hover: #7b2cbf;
     --icon: #e0aaff;
-    --border: #6c757d;
+    --border: #9cacbb;
     --box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     --border-input: #0077b6;
+    --change-status: #0e5bd6;
 
     // [background]
     --bg-button: #2b2b56;
@@ -47,7 +48,7 @@ body {
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
-    // background: var(--primary);
+    color: var(--primary);
 }
 
 @media only screen and (max-width: 25.9375em) {

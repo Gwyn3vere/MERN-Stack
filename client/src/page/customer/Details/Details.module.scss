@@ -188,6 +188,22 @@
                         background: var(--primary);
                     }
                 }
+
+                .disabled {
+                    margin: 20px 0;
+                    height: 50px;
+
+                    button {
+                        width: 100%;
+                        height: 100%;
+                        border: none;
+                        cursor: not-allowed;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        transition: all 0.3s ease-out;
+                        background: var(--text-color);
+                    }
+                }
             }
         }
     }

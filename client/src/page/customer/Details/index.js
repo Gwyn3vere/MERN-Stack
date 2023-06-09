@@ -10,6 +10,7 @@ import { AiFillInfoCircle, AiFillCamera, AiFillWechat } from 'react-icons/ai';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import roomApi from '~/api/room';
+import { ToastContainer, toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 const URL = process.env.REACT_APP_ANDRESS_IP;
@@ -113,21 +114,28 @@ function Details() {
 
     // Hàm sao lưu và chuyển hướng
     const handleBooking = () => {
-        navigate('/dat-phong', {
-            state: {
-                checkin,
-                checkout,
-                adults,
-                children,
-                totalDays,
-                totalPrice,
-                room: slugRoom,
-            },
-        });
+        if (checkin === '' || checkout === '') {
+            toast.error('Ngày nhận phòng và trả phòng không được để trống!!');
+        } else if (totalDays < 1) {
+            toast.error('Ngày nhận phòng và trả phòng không hợp lệ!!');
+        } else {
+            navigate('/dat-phong', {
+                state: {
+                    checkin,
+                    checkout,
+                    adults,
+                    children,
+                    totalDays,
+                    totalPrice,
+                    room: slugRoom,
+                },
+            });
+        }
     };
 
     return (
         <main className={cx('wrapper')}>
+            <ToastContainer />
             <div className={cx('container')}>
                 <div className={cx('banner')}>
                     <img src={`${URL}/uploads/${roomDetail && roomDetail.room.thumbnailRoom.public_id}`} alt="" />
@@ -209,9 +217,17 @@ function Details() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={cx('button')}>
-                                    <button onClick={handleBooking}>Đặt phòng</button>
-                                </div>
+                                {roomDetail && roomDetail.room.quantityRoom >= 1 ? (
+                                    <div className={cx('button')}>
+                                        <button onClick={handleBooking}>Tiếp tục</button>
+                                    </div>
+                                ) : (
+                                    <div className={cx('disabled')}>
+                                        <button onClick={handleBooking} disabled>
+                                            Đã hết phòng
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

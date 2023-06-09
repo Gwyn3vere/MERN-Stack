@@ -6,6 +6,7 @@ import Overview from '~/page/admin/Overview';
 import Createroom from '~/page/admin/Managerment/Room/Createroom';
 import Updateroom from '~/page/admin/Managerment/Room/Updateroom';
 import Room from '~/page/admin/Managerment/Room';
+import Order from '~/page/admin/Managerment/Order';
 
 // CustomerLayout
 import Home from '~/page/customer/Home';
@@ -33,6 +34,7 @@ const privateRoutes = [
     { path: '/update-room/:_id', component: Updateroom, layout: AdminLayout, role: ['admin'] },
     { path: '/rooms', component: Room, layout: AdminLayout, role: ['admin'] },
     { path: '/accounts', component: Account, layout: AdminLayout, role: ['admin'] },
+    { path: '/orders', component: Order, layout: AdminLayout, role: ['admin'] },
     { path: '/dat-phong', component: Booking, role: ['customer', 'admin'] },
     { path: '/cai-dat', component: Settings, layout: MobileLayout, role: ['customer', 'admin'] },
 ];
